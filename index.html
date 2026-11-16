@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <title>Balé by BTN & Pijar by BTN — Dual HP Terhubung</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"> -->
+  <title>Pijar by BTN</title>
+  <link rel="icon" type="image/png" href="logo-dark.png"> 
+  <style>
+    :root {
+      --blue: #1254B5;
+      --blue-deep: #0C3E8C;
+      --blue-soft: #EFF6FF;
+      --red: #ED1C24;
+      --bg: #F5F7FB;
+      --card: #FFFFFF;
+      --text: #1E293B;
+      --muted: #64748B;
+      --line: #F1F5F9;
+      --green: #16A34A;
+      --green-bg: #DCFCE7;
+      --amber: #D97706;
+      --amber-bg: #FEF3C7;
+      --red-txt: #DC2626;
+      --red-bg: #FEE2E2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: #0F172A;
+      min-height: 100vh;
+      padding: 18px 14px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: #F8FAFC;
+    }
+
+    /* BRAND LOGO ASSET WRAPPERS (CROP & PROPORTIONAL FIT FOR SQUARE PNGs) */
+    .logo-bale-pill {
+      background: #transparent;
+      padding: 3px 11px;
+      border-radius: 99px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .logo-bale-pill img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-pijar-banner-wrap {
+      height: 36px;
+      width: 112px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-left: -4px;
+    }
+    .logo-pijar-banner-wrap img {
+      height: 104px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-pijar-header-wrap {
+      height: 38px;
+      width: 118px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-left: -6px;
+    }
+    .logo-pijar-header-wrap img {
+      height: 110px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .ws-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #334155;
+      padding: 2px 10px 2px 6px;
+      border-radius: 99px;
+    }
+    .ws-logo-crop {
+      height: 24px;
+      width: 74px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ws-logo-crop img {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* WORKSPACE BAR */
+    .workspace-bar {
+      width: 100%;
+      max-width: 880px;
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 11px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .ws-title { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; }
+    .sync-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(22, 163, 74, 0.18); border: 1px solid rgba(34, 197, 94, 0.45);
+      color: #4ADE80; padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 700;
+    }
+    .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: #22C55E; animation: syncPulse 1.6s infinite; }
+    @keyframes syncPulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    .ws-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ws-btn {
+      background: #0F172A; color: #CBD5E1; border: 1px solid #475569;
+      padding: 6px 11px; border-radius: 99px; font-size: 11px; font-weight: 600; cursor: pointer;
+    }
+    .ws-btn:hover { background: #334155; color: #fff; }
+    .ws-btn.primary { background: var(--blue); border-color: #3B82F6; color: #fff; }
+
+    /* DUAL STAGE */
+    .dual-stage { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 28px; width: 100%; }
+    .phone-col { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .role-badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 99px; font-size: 12px; font-weight: 700; }
+    .role-parent { background: rgba(18, 84, 181, 0.35); border: 1px solid #3B82F6; color: #93C5FD; }
+    .role-child { background: rgba(237, 28, 36, 0.2); border: 1px solid #F87171; color: #FCA5A5; }
+
+    /* UNIFIED PHONE SHELL */
+    .phone {
+      width: 390px;
+      height: 825px;
+      background: var(--blue);
+      border-radius: 40px;
+      border: 7px solid #1E293B;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.5);
+      color: var(--text);
+    }
+
+    .screen { display: none; flex-direction: column; height: 100%; width: 100%; animation: fade 0.18s ease; }
+    .screen.active { display: flex; }
+    @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* TOP HEADER */
+    .top-section {
+      background: radial-gradient(circle at 85% 10%, #2372E2 0%, #1254B5 60%, #0D4294 100%);
+      padding: 16px 0 12px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .header-bar { display: flex; justify-content: space-between; align-items: center; padding: 0 18px; margin-bottom: 10px; }
+    .header-icons { display: flex; align-items: center; gap: 12px; }
+    .bell-wrap { position: relative; cursor: pointer; display: flex; align-items: center; }
+    .notif-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; border-radius: 50%; background: var(--red); border: 1.5px solid var(--blue); }
+    .notif-count {
+      position: absolute; top: -5px; right: -6px; min-width: 16px; height: 16px; padding: 0 4px;
+      border-radius: 99px; background: var(--red); color: #fff; font-size: 9.5px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--blue);
+      animation: pulseBadge 1.5s infinite;
+    }
+    @keyframes pulseBadge { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+
+    .greeting-row { padding: 0 18px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+    .greeting-name { font-size: 13.5px; font-weight: 500; opacity: 0.95; }
+    .poin-pill {
+      background: rgba(255, 255, 255, 0.14); padding: 4px 10px; border-radius: 99px;
+      font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+    }
+
+    /* CAROUSEL KARTU SALDO */
+    .carousel { display: flex; align-items: center; gap: 10px; }
+    .peek-l, .peek-r { width: 12px; height: 152px; flex-shrink: 0; }
+    .peek-l { background: rgba(15, 23, 42, 0.45); border-radius: 0 14px 14px 0; }
+    .peek-r { background: rgba(255, 255, 255, 0.75); border-radius: 14px 0 0 14px; }
+
+    .saldo-card {
+      flex: 1; height: 170px; background: #FFFFFF; border-radius: 16px; padding: 14px 16px;
+      position: relative; overflow: hidden; box-shadow: 0 10px 25px rgba(8, 36, 86, 0.22); color: var(--text);
+    }
+    .rek-tab {
+      position: absolute; top: 0; right: 0; background: #E2E8F0; color: #334155;
+      font-size: 10px; font-weight: 600; padding: 6px 11px 7px 13px; border-bottom-left-radius: 16px;
+      z-index: 3; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+    }
+    .card-art { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .card-inner { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+    .edu-box { background: rgba(248, 250, 252, 0.92); border: 1px solid #E2E8F0; border-radius: 10px; padding: 8px 10px; backdrop-filter: blur(4px); }
+    .dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+    .dot-a { width: 16px; height: 4px; background: #fff; border-radius: 99px; }
+    .dot { width: 4px; height: 4px; background: rgba(255,255,255,0.45); border-radius: 50%; }
+
+    /* MAIN SHEET & CARDS */
+    .sheet {
+      flex: 1; background: var(--bg); border-top-left-radius: 26px; border-top-right-radius: 26px;
+      padding: 15px 16px 86px; overflow-y: auto; scrollbar-width: none;
+    }
+    .sheet::-webkit-scrollbar { display: none; }
+
+    .card { background: var(--card); border-radius: 16px; padding: 15px 16px; box-shadow: 0 2px 14px rgba(15, 23, 42, 0.04); margin-bottom: 12px; }
+    .card-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .card-title { font-size: 13px; font-weight: 700; color: var(--text); }
+    .pill { font-size: 10.5px; font-weight: 700; padding: 3px 9px; border-radius: 99px; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+
+    .track { width: 100%; height: 7px; background: #E2E8F0; border-radius: 99px; overflow: hidden; }
+    .fill { height: 100%; border-radius: 99px; transition: width 0.3s ease, background 0.3s ease; }
+
+    /* MENU GRID & CIRCULAR SVG ICONS */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 8px; text-align: center; }
+    .m-item { cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+    .m-circle {
+      width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 7px; transition: transform 0.12s; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.09);
+    }
+    .grid-4 .m-circle { width: 44px; height: 44px; margin-bottom: 6px; }
+    .m-item:hover .m-circle { transform: translateY(-2px); }
+    .m-label { font-size: 11px; font-weight: 600; color: #334155; }
+
+    /* SUB-SCREEN */
+    .sub-header { background: var(--blue); color: #fff; padding: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; }
+    .sub-left { display: flex; align-items: center; gap: 12px; }
+    .back-btn { background: rgba(255,255,255,0.16); border: none; color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+    .sub-title { font-size: 15px; font-weight: 700; }
+    .sub-body { flex: 1; background: var(--bg); padding: 16px 16px 86px; overflow-y: auto; scrollbar-width: none; }
+    .sub-body::-webkit-scrollbar { display: none; }
+
+    /* UNIFIED PILL BUTTONS */
+    .btn {
+      border: none; border-radius: 99px; font-size: 12px; font-weight: 600; padding: 11px 16px;
+      cursor: pointer; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-soft { background: var(--blue-soft); color: var(--blue); }
+    .btn-danger-soft { background: var(--red-bg); color: var(--red-txt); }
+    .btn-outline { background: #fff; color: var(--text); border: 1px solid #CBD5E1; }
+    .btn-xs { padding: 6px 12px; font-size: 11px; width: auto; }
+    .btn-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* INPUTS & CHIPS */
+    .field-label { display: block; font-size: 11.5px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+    .input { width: 100%; padding: 11px 13px; border: 1px solid #CBD5E1; border-radius: 12px; font-size: 13px; margin-bottom: 12px; outline: none; background: #fff; color: var(--text); }
+    .input:focus { border-color: var(--blue); }
+    .input.error { border-color: var(--red); }
+    .error-msg { font-size: 11px; color: var(--red-txt); margin: -8px 0 10px; display: none; font-weight: 600; }
+
+    .rupiah-box { display: flex; align-items: center; border: 1px solid #CBD5E1; border-radius: 12px; background: #fff; padding: 0 13px; height: 44px; margin-bottom: 12px; }
+    .rupiah-box:focus-within { border-color: var(--blue); }
+    .rp-pre { font-size: 13px; font-weight: 700; color: var(--muted); margin-right: 6px; }
+    .rp-inp { flex: 1; border: none; outline: none; font-size: 14px; font-weight: 700; color: var(--text); background: transparent; width: 100%; }
+    .rp-suf { font-size: 11.5px; color: var(--muted); font-weight: 600; margin-left: 6px; white-space: nowrap; }
+
+    .nominal-box { width: 100%; padding: 12px 14px; border: 1.5px solid #CBD5E1; border-radius: 12px; background: #F8FAFC; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .nominal-box:hover { border-color: var(--blue); background: #fff; }
+    .nominal-val { font-size: 17px; font-weight: 800; color: var(--text); }
+
+    .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+    .row:last-child { border-bottom: none; padding-bottom: 0; }
+    .row:first-child { padding-top: 0; }
+
+    .tabs { display: flex; gap: 6px; background: #E2E8F0; padding: 4px; border-radius: 12px; margin-bottom: 14px; }
+    .tab { flex: 1; padding: 8px; border: none; border-radius: 9px; font-size: 11.5px; font-weight: 600; background: transparent; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .tab.active { background: #fff; color: var(--blue); box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+
+    .chips { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { padding: 7px 12px; border-radius: 99px; font-size: 11px; font-weight: 600; border: 1px solid #E2E8F0; background: #fff; color: var(--muted); cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .chip.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .chip-row-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 12px; }
+    .chip-row-4 .chip { text-align: center; padding: 7px 4px; }
+
+    /* PARENT SPECIFIC CLEAN COMPONENTS */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .icon-badge { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 10px 12px; margin: 10px 0; }
+
+    .switch-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .switch-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .toggle { width: 44px; height: 24px; background: #CBD5E1; border-radius: 99px; position: relative; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
+    .toggle.on { background: var(--blue); }
+    .toggle::after { content: ""; width: 18px; height: 18px; background: #fff; border-radius: 50%; position: absolute; top: 3px; left: 3px; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .toggle.on::after { left: 23px; }
+
+    .upload-zone { border: 1.5px dashed #93C5FD; background: var(--blue-soft); border-radius: 14px; padding: 18px 14px; text-align: center; cursor: pointer; margin-bottom: 12px; }
+    .ocr-box { border: 1px solid #BBF7D0; background: #F0FDF4; border-radius: 14px; padding: 13px; }
+    .alert-strip { background: var(--amber-bg); color: #92400E; border: 1px solid #FDE68A; border-radius: 12px; padding: 9px 11px; font-size: 11px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+
+    /* CHILD BEASISWA & HISTORY */
+    .bea-summary { background: linear-gradient(135deg, #1254B5, #1D6FE0); color: #fff; border-radius: 16px; padding: 13px 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 18px rgba(18, 84, 181, 0.22); }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .stat-box { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 10px 12px; }
+    .stacked-bar { display: flex; height: 10px; border-radius: 99px; overflow: hidden; gap: 2px; margin: 10px 0; }
+
+    .app-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .app-item:first-child { padding-top: 0; }
+    .app-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-progress-wrap { position: relative; margin-top: 12px; padding-top: 2px; }
+    .step-line-bg { position: absolute; top: 10px; left: 12%; right: 12%; height: 3px; background: #E2E8F0; z-index: 1; border-radius: 99px; }
+    .step-line-fill { position: absolute; top: 10px; left: 12%; height: 3px; background: var(--blue); z-index: 2; border-radius: 99px; transition: width 0.3s ease; }
+    .step-nodes { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; }
+    .s-node { font-size: 10px; color: var(--muted); }
+    .s-dot { width: 18px; height: 18px; border-radius: 50%; background: #E2E8F0; color: #64748B; font-size: 9.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; border: 2px solid #fff; }
+    .s-node.done .s-dot { background: var(--blue); color: #fff; }
+    .s-node.done { color: var(--text); font-weight: 600; }
+    .s-node.current .s-dot { background: var(--red); color: #fff; }
+    .s-node.current { color: var(--red-txt); font-weight: 700; }
+    .s-node.win .s-dot { background: var(--green); color: #fff; }
+    .s-node.win { color: var(--green); font-weight: 700; }
+
+    /* QRIS FULL CAMERA */
+    .qris-full { position: relative; flex: 1; background: #050810; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+    #qris-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; }
+    .qris-top-bar { position: relative; z-index: 5; display: flex; justify-content: space-between; align-items: center; padding: 18px 16px; color: #fff; background: linear-gradient(180deg, rgba(0,0,0,0.65) 0%, transparent 100%); }
+    .qris-logo-pill { background: #fff; color: #0F172A; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.6px; }
+    .scan-center { position: relative; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .scan-box { width: 230px; height: 230px; position: relative; border-radius: 18px; box-shadow: 0 0 0 999px rgba(5, 8, 16, 0.55); }
+    .corner { position: absolute; width: 30px; height: 30px; border-color: #fff; border-style: solid; border-width: 0; }
+    .tl { top: 0; left: 0; border-top-width: 4px; border-left-width: 4px; border-top-left-radius: 14px; }
+    .tr { top: 0; right: 0; border-top-width: 4px; border-right-width: 4px; border-top-right-radius: 14px; }
+    .bl { bottom: 0; left: 0; border-bottom-width: 4px; border-left-width: 4px; border-bottom-left-radius: 14px; }
+    .br { bottom: 0; right: 0; border-bottom-width: 4px; border-right-width: 4px; border-bottom-right-radius: 14px; }
+    .scan-laser { position: absolute; left: 12px; right: 12px; height: 3px; background: linear-gradient(90deg, transparent, #ED1C24, #fff, #ED1C24, transparent); box-shadow: 0 0 12px #ED1C24; animation: laserMove 2.2s infinite ease-in-out; }
+    @keyframes laserMove { 0%,100%{top:16px;} 50%{top:210px;} }
+    .cam-fallback { position: absolute; inset: 0; z-index: 6; display: none; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 24px; background: rgba(5, 8, 16, 0.78); }
+    .qris-bottom-bar { position: relative; z-index: 7; padding: 20px 18px 28px; background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .glass-btn { flex: 1; background: rgba(255, 255, 255, 0.16); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.25); color: #fff; padding: 10px 12px; border-radius: 99px; font-size: 11.5px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+    /* BOTTOM NAV CURVED NOTCH */
+    .nav-wrap { position: absolute; bottom: 0; left: 0; right: 0; height: 74px; z-index: 20; pointer-events: none; }
+    .nav-svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 64px; filter: drop-shadow(0 -3px 10px rgba(15, 23, 42, 0.06)); pointer-events: auto; }
+    .nav-items { position: absolute; bottom: 5px; left: 0; right: 0; height: 52px; display: flex; justify-content: space-around; align-items: center; pointer-events: auto; }
+    .nav-btn { width: 60px; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10px; font-weight: 500; color: #94A3B8; cursor: pointer; }
+    .nav-btn.active { color: var(--blue); font-weight: 700; }
+    .qris-fab {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(180deg, #1659BE 0%, #0C3E8C 100%);
+      position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 16px rgba(12, 62, 140, 0.4); cursor: pointer; pointer-events: auto;
+    }
+
+    /* MODALS & POPUPS */
+    .modal { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.6); display: none; align-items: flex-end; z-index: 60; }
+    .modal.show { display: flex; }
+    .modal.center { align-items: center; justify-content: center; padding: 24px; z-index: 86; }
+    .modal-sheet { background: #fff; width: 100%; border-radius: 22px 22px 0 0; padding: 14px 18px 24px; max-height: 84%; overflow-y: auto; animation: fade 0.16s ease; }
+    .sheet-handle { width: 40px; height: 4px; background: #CBD5E1; border-radius: 99px; margin: 0 auto 12px; }
+    .popup-card { background: #fff; width: 100%; border-radius: 22px; padding: 24px 20px 20px; text-align: center; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35); animation: popScale 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.1); }
+    @keyframes popScale { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    .popup-icon { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; }
+
+    /* STRUK QRIS & NUMPAD */
+    #qris-receipt-modal { position: absolute; inset: 0; background: #EEF2F7; z-index: 80; display: none; flex-direction: column; animation: fade 0.2s ease; }
+    #qris-receipt-modal.show { display: flex; }
+    .rcpt-top { background: radial-gradient(circle at 80% 10%, #2372E2 0%, #1254B5 65%, #0C3E8C 100%); color: #fff; padding: 20px 18px 50px; text-align: center; flex-shrink: 0; }
+    .rcpt-check { width: 52px; height: 52px; border-radius: 50%; background: #22C55E; color: #fff; display: flex; align-items: center; justify-content: center; margin: 10px auto; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25); }
+    .rcpt-scroll { flex: 1; overflow-y: auto; padding: 0 16px 18px; margin-top: -34px; scrollbar-width: none; }
+    .rcpt-paper { background: #fff; border-radius: 18px; padding: 18px 16px 16px; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1); }
+    .rcpt-divider { position: relative; border-top: 1.5px dashed #CBD5E1; margin: 14px -16px; }
+    .rcpt-divider::before, .rcpt-divider::after { content: ''; position: absolute; top: -9px; width: 18px; height: 18px; border-radius: 50%; background: #EEF2F7; }
+    .rcpt-divider::before { left: -9px; }
+    .rcpt-divider::after { right: -9px; }
+    .rcpt-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 6px 0; font-size: 12px; }
+    .rcpt-row span:first-child { color: var(--muted); flex-shrink: 0; }
+    .rcpt-row strong { color: var(--text); text-align: right; font-weight: 600; }
+    .rcpt-warn-box { background: var(--amber-bg); color: #92400E; border: 1px solid #FDE68A; border-radius: 10px; padding: 8px 10px; font-size: 11px; font-weight: 600; margin-top: 10px; display: flex; align-items: center; gap: 6px; }
+    .rcpt-footer-bar { background: #fff; padding: 12px 16px 20px; border-top: 1px solid #E2E8F0; display: flex; gap: 10px; flex-shrink: 0; }
+
+    #numpad-modal { z-index: 88; }
+    .numpad-display { background: #F8FAFC; border: 1.5px solid #CBD5E1; border-radius: 14px; padding: 12px 14px; text-align: right; font-size: 24px; font-weight: 800; color: var(--blue); margin-bottom: 10px; }
+    .preset-row { display: flex; gap: 6px; margin-bottom: 10px; }
+    .preset-chip { flex: 1; padding: 7px 6px; background: var(--blue-soft); color: var(--blue); border: none; border-radius: 99px; font-size: 11px; font-weight: 700; cursor: pointer; }
+    .keypad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+    .k-btn { padding: 13px; border-radius: 12px; border: 1px solid #E2E8F0; background: #fff; font-size: 18px; font-weight: 700; color: var(--text); cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <div class="workspace-bar">
+    <div class="ws-title">
+      <div class="ws-logo-badge">
+        <div class="ws-logo-crop">
+          <img src="logo-dark.png" alt="Pijar by BTN" />
+        </div>
+        <span style="font-size:11px; color:#94A3B8; font-weight:600;">Dual HP</span>
+      </div>
+      <span class="sync-pill"><span class="sync-dot"></span> Sinkronisasi Real-Time</span>
+    </div>
+    <div class="ws-actions">
+      <button class="ws-btn" onclick="pGo('p-screen-home')">Ortu: Beranda</button>
+      <button class="ws-btn" onclick="pGo('p-screen-reg')">Ortu: Data Anak</button>
+      <button class="ws-btn" onclick="pGo('p-screen-plan')">Ortu: Atur Tabungan</button>
+      <button class="ws-btn" onclick="pGo('p-screen-hub'); pSwitchTab('p-tab-tabungan')">Ortu: Hub Tabungan</button>
+      <button class="ws-btn" onclick="pGo('p-screen-hub'); pSwitchTab('p-tab-jajan')">Ortu: Uang Jajan</button>
+      <button class="ws-btn primary" onclick="cGo('c-screen-qris'); cOpenOverLimitTest();">Tes Belanja Anak (Trigger 2FA)</button>
+    </div>
+  </div>
+
+  <div class="dual-stage">
+
+    <!-- =================================================================== -->
+    <!-- HP KIRI: ORANG TUA (balé by BTN -> banner pijar by btn)             -->
+    <!-- =================================================================== -->
+    <div class="phone-col">
+      <div class="role-badge role-parent">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        HP Orang Tua • balé by BTN
+      </div>
+
+      <div id="phone-parent" class="phone">
+
+        <!-- P-SCREEN 1: BERANDA ORANG TUA -->
+        <div id="p-screen-home" class="screen active">
+          <div class="top-section">
+            <div class="header-bar">
+              <!-- Official PNG Logo: balé by btn inside crisp white pill -->
+              <div class="logo-bale-pill">
+                <img src="bale-by-btn.png" alt="balé by btn" />
+              </div>
+
+              <div class="header-icons">
+                <div class="bell-wrap" onclick="pOpenModal('p-sheet-notifikasi')">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                  <span id="p-bell-badge" class="notif-count" style="display:none;">1</span>
+                </div>
+                <div class="bell-wrap">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                </div>
+                <div class="bell-wrap" onclick="pGo('p-screen-reg')">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="greeting-row">
+              <div class="greeting-name">Selamat Malam, <strong>Budi Santoso</strong></div>
+              <div class="poin-pill" onclick="pGo('p-screen-hub'); pSwitchTab('p-tab-tabungan')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>10.000</span>
+                <span style="font-weight:500; opacity:0.9;">Poin ›</span>
+              </div>
+            </div>
+
+            <!-- KARTU SALDO REKENING UTAMA -->
+            <div class="carousel">
+              <div class="peek-l"></div>
+              <div class="saldo-card">
+                <div class="rek-tab" onclick="pShowInfo('Nomor Rekening Disalin', '1234-5678-9009-876 siap ditempel.')">
+                  <span>1234-5678-9009</span>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </div>
+                <svg class="card-art" viewBox="0 0 340 170" preserveAspectRatio="none">
+                  <circle cx="295" cy="18" r="34" stroke="#E2E8F0" stroke-width="1" fill="none"/>
+                  <circle cx="295" cy="18" r="48" stroke="#E2E8F0" stroke-width="1" fill="none"/>
+                  <path d="M0 135 Q 90 105 190 125 T 340 112 L 340 170 L 0 170 Z" fill="#EDF2FB"/>
+                  <rect x="280" y="68" width="44" height="90" rx="14" fill="#6D54D6" opacity="0.22"/>
+                  <rect x="262" y="85" width="42" height="75" rx="12" fill="#4338CA" opacity="0.28"/>
+                </svg>
+
+                <div class="card-inner">
+                  <div>
+                    <div style="font-size:12px; font-weight:600; color:#475569;">Saldo Rekening Utama</div>
+                    <div style="display:flex; align-items:center; gap:7px; margin-top:4px;">
+                      <span style="font-size:16px; font-weight:700; color:#64748B;">Rp</span>
+                      <span id="p-main-balance-txt" style="font-size:23px; font-weight:800; color:#0F172A; letter-spacing:-0.02em;">••••••••</span>
+                      <button onclick="pToggleMainBalance()" style="background:none; border:none; cursor:pointer; color:#64748B; display:flex; align-items:center;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      </button>
+                    </div>
+                    <div style="font-size:10.5px; color:var(--green); font-weight:600; margin-top:2px;">Aktif • Rekening Orang Tua</div>
+                  </div>
+
+                  <div class="edu-box">
+                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; margin-bottom:4px;">
+                      <span style="font-weight:700; color:var(--text);">Akun Anak: <span data-child-full>Arka Pratama</span></span>
+                      <span id="p-home-edu-pct" style="font-weight:700; color:var(--blue);">65%</span>
+                    </div>
+                    <div class="track" style="height:6px; margin-bottom:4px;">
+                      <div id="p-home-edu-bar" class="fill" style="width:65%; background:linear-gradient(90deg, var(--blue), #3B82F6);"></div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--muted);">
+                      <span>Pendidikan <strong id="p-home-edu-cur" style="color:var(--text);">Rp 6.500.000</strong></span>
+                      <span>Jajan <strong id="p-home-child-saldo" style="color:var(--blue);">Rp 500.000</strong></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="peek-r"></div>
+            </div>
+
+            <div class="dots"><div class="dot-a"></div><div class="dot"></div><div class="dot"></div></div>
+          </div>
+
+          <div class="sheet">
+            <!-- 1. BANNER PIJAR BY BTN (Official PNG logo-light.png) -->
+            <div class="card" style="cursor:pointer; position:relative; overflow:hidden;" onclick="pGo('p-screen-hub'); pSwitchTab('p-tab-tabungan')">
+              <div style="position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(180deg, var(--red), var(--blue));"></div>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding-left:4px;">
+                <div>
+                  <div class="logo-pijar-banner-wrap">
+                    <img src="logo-light.png" alt="Pijar by BTN" />
+                  </div>
+                  <div style="font-size:11.5px; color:var(--muted); margin-top:2px;">Tabungan Sekolah &amp; Uang Jajan Anak</div>
+                </div>
+                <button class="btn btn-blue btn-xs">Buka ›</button>
+              </div>
+            </div>
+
+            <!-- 2. 8 MENU UTAMA ORTU -->
+            <div class="card" style="padding:16px 12px;">
+              <div class="grid-4">
+                <div class="m-item" onclick="pGo('p-screen-hub'); pSwitchTab('p-tab-jajan')">
+                  <div class="m-circle" style="background:#3C72EB;">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg>
+                  </div>
+                  <div class="m-label">Transfer</div>
+                </div>
+
+                <div class="m-item" onclick="pShowInfo('Pembayaran', 'Menu tagihan & pembayaran rekening utama.')">
+                  <div class="m-circle" style="background:#A86BEA;">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+                  </div>
+                  <div class="m-label">Pembayaran</div>
+                </div>
+
+                <div class="m-item" onclick="pShowInfo('Pembelian', 'Menu pulsa, paket data, dan token listrik.')">
+                  <div class="m-circle" style="background:#14B8A6;">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                  </div>
+                  <div class="m-label">Pembelian</div>
+                </div>
+
+                <div class="m-item" onclick="pShowInfo('Bale Properti', 'Layanan pengajuan dan simulasi KPR BTN.')">
+                  <div class="m-circle" style="background:#EC4899;">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  </div>
+                  <div class="m-label">Bale Properti</div>
+                </div>
+
+                <div class="m-item" onclick="pGo('p-screen-hub'); pSwitchTab('p-tab-tabungan'); pOpenModal('p-sheet-poin')">
+                  <div class="m-circle" style="background:#F59E0B;">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  </div>
+                  <div class="m-label">Bale Poin</div>
+                </div>
+
+                <div class="m-item" onclick="pShowInfo('Cardless', 'Tarik tunai tanpa kartu di ATM BTN.')">
+                  <div class="m-circle" style="background:#0EA5E9;">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                  </div>
+                  <div class="m-label">Cardless</div>
+                </div>
+
+                <div class="m-item" onclick="pGo('p-screen-hub'); pSwitchTab('p-tab-prestasi')">
+                  <div class="m-circle" style="background:#8B5CF6;">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                  </div>
+                  <div class="m-label">Lifestyle</div>
+                </div>
+
+                <div class="m-item" onclick="pGo('p-screen-reg')">
+                  <div class="m-circle" style="background:#1254B5;">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                  </div>
+                  <div class="m-label">Semua Menu</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. DOMPETKU -->
+            <div class="card">
+              <div class="card-top">
+                <span class="card-title">DompetKu</span>
+                <span style="font-size:11px; font-weight:600; color:var(--blue); cursor:pointer;">Atur akun ›</span>
+              </div>
+              <div style="background:var(--blue-soft); border-radius:12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:9px;">
+                  <div class="icon-badge" style="background:#0284C7; color:#fff; width:32px; height:32px;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+                  </div>
+                  <span style="font-size:12px; font-weight:700; color:#0369A1;">DANA • Isi Saldo Cepat</span>
+                </div>
+                <button class="btn btn-blue btn-xs" onclick="pShowInfo('DompetKu', 'Akun DANA siap dihubungkan.')">Hubungkan</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTTOM NAV ORTU -->
+          <div class="nav-wrap">
+            <svg class="nav-svg" viewBox="0 0 390 64" preserveAspectRatio="none">
+              <path d="M0,10 Q0,0 12,0 L132,0 C150,0 156,29 195,29 C234,29 240,0 258,0 L378,0 Q390,0 390,10 L390,64 L0,64 Z" fill="#FFFFFF"/>
+            </svg>
+            <div class="qris-fab" onclick="pShowInfo('QRIS', 'Kamera QRIS rekening utama Budi Santoso.')">
+              <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
+                <path d="M5 11V7C5 5.9 5.9 5 7 5H11M25 5H29C30.1 5 31 5.9 31 7V11M31 25V29C31 30.1 30.1 31 29 31H25M11 31H7C5.9 31 5 30.1 5 29V25" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+                <text x="18" y="21" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-weight="800" font-size="9">QRIS</text>
+              </svg>
+            </div>
+            <div class="nav-items">
+              <div class="nav-btn active" onclick="pGo('p-screen-home')"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Beranda</span></div>
+              <div class="nav-btn" onclick="pGo('p-screen-hub'); pSwitchTab('p-tab-jajan')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><span>History</span></div>
+              <div style="width:66px;"></div>
+              <div class="nav-btn" onclick="pGo('p-screen-hub'); pSwitchTab('p-tab-tabungan')"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg><span>Profile</span></div>
+              <div class="nav-btn" onclick="pShowInfo('Keluar', 'Sesi akun Orang Tua tetap aman.')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>Keluar</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- P-SCREEN 2: ISI DATA ANAK -->
+        <div id="p-screen-reg" class="screen">
+          <div class="sub-header">
+            <div class="sub-left"><button class="back-btn" onclick="pGo('p-screen-home')">←</button><div class="sub-title">Isi Data Anak</div></div>
+            <span class="pill" style="background:rgba(255,255,255,0.18); color:#fff;">Langkah 1/2</span>
+          </div>
+          <div class="sub-body">
+            <button class="btn btn-soft" style="margin-bottom:12px;" onclick="pAutoFillKK()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              Foto Kartu Keluarga (Isi Otomatis)
+            </button>
+            <div class="card">
+              <div class="card-top"><span class="card-title">Identitas Anak</span></div>
+              <div style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Masukkan data anak sesuai Kartu Keluarga untuk tabungan sekolah.</div>
+              <label class="field-label">Nama Lengkap Anak</label>
+              <input id="p-input-nama-anak" class="input" type="text" value="Arka Pratama" placeholder="Ketik nama lengkap anak" oninput="pSyncChildName()" />
+              <div id="p-err-nama" class="error-msg">Mohon isi nama anak terlebih dahulu.</div>
+              <label class="field-label">NIK Anak (16 Angka)</label>
+              <input id="p-input-nik-anak" class="input" type="text" maxlength="16" value="3174091205150001" />
+              <label class="field-label">Nomor Kartu Keluarga (KK)</label>
+              <input id="p-input-kk-anak" class="input" style="margin-bottom:0;" type="text" maxlength="16" value="3174090808140004" />
+            </div>
+            <button class="btn btn-blue" onclick="pSubmitReg()">Lanjut Atur Tabungan</button>
+          </div>
+        </div>
+
+        <!-- P-SCREEN 3: ATUR TABUNGAN -->
+        <div id="p-screen-plan" class="screen">
+          <div class="sub-header">
+            <div class="sub-left"><button class="back-btn" onclick="pGo('p-screen-reg')">←</button><div class="sub-title">Atur Tabungan</div></div>
+            <span class="pill" style="background:rgba(255,255,255,0.18); color:#fff;">Langkah 2/2</span>
+          </div>
+          <div class="sub-body">
+            <div class="card">
+              <div style="font-size:12px; color:var(--muted); margin-bottom:12px;">Tabungan pendidikan untuk: <strong style="color:var(--blue);" data-child-full>Arka Pratama</strong></div>
+              <label class="field-label">Tujuan Jenjang Pendidikan</label>
+              <select id="p-select-jenjang" class="input" onchange="pOnDropdownChange()">
+                <option value="Jenjang SD" selected>Sekolah Dasar (SD)</option>
+                <option value="Jenjang SMP">Sekolah Menengah Pertama (SMP)</option>
+                <option value="Jenjang SMA">Sekolah Menengah Atas (SMA)</option>
+                <option value="Perguruan Tinggi">Perguruan Tinggi (Kuliah)</option>
+              </select>
+              <label class="field-label">Lama Menabung (Jangka Waktu)</label>
+              <select id="p-select-tenor" class="input" onchange="pOnDropdownChange()">
+                <option value="3">3 Tahun</option><option value="6" selected>6 Tahun</option><option value="9">9 Tahun</option><option value="12">12 Tahun</option>
+              </select>
+              <label class="field-label">Tabungan Otomatis Tiap Bulan</label>
+              <div class="chips" style="margin-bottom:8px;">
+                <button class="chip" onclick="pSetQuickDeposit(500000, this)">Rp 500rb</button>
+                <button class="chip active" onclick="pSetQuickDeposit(1000000, this)">Rp 1 Juta</button>
+                <button class="chip" onclick="pSetQuickDeposit(2000000, this)">Rp 2 Juta</button>
+              </div>
+              <div class="rupiah-box"><span class="rp-pre">Rp</span><input id="p-input-setoran" class="rp-inp" type="text" inputmode="numeric" value="1.000.000" oninput="pFormatRupiahInput(this)" /><span class="rp-suf">/ bulan</span></div>
+              <div style="font-size:11px; color:var(--muted); line-height:1.45;">Dipotong otomatis tiap <strong>tanggal 25</strong> dari Rekening 1234-5678-9009-876.</div>
+            </div>
+
+            <div class="card" style="background:linear-gradient(135deg, #EFF6FF, #FFFFFF); border:1px solid #BFDBFE;">
+              <div class="card-top" style="margin-bottom:6px;"><span class="card-title" style="color:var(--blue);">Perkiraan Dana Nanti</span><span class="pill" style="background:#DBEAFE; color:var(--blue);"><span id="p-sim-tenor-lbl">6 Tahun</span> • <span id="p-sim-jenjang-lbl">Jenjang SD</span></span></div>
+              <div id="p-sim-total-txt" style="font-size:23px; font-weight:800; color:var(--blue); margin-bottom:10px;">Rp 10.000.000</div>
+              <div class="row" style="background:#fff; border-radius:12px; padding:10px 12px; border:1px solid #E2E8F0; margin-bottom:8px;">
+                <div><div style="font-size:10.5px; color:var(--muted);">Bunga Tabungan (Naik Tiap Tahun)</div><strong id="p-sim-rate-range" style="font-size:12.5px;">1,50 s/d 2,75% / tahun</strong></div>
+                <button class="btn btn-soft btn-xs" onclick="pOpenModal('p-sheet-bunga')">Lihat Rincian ›</button>
+              </div>
+              <div style="font-size:11px; color:var(--green); font-weight:600;">✓ Dapat Balé Poin &amp; Undangan Pameran Sekolah</div>
+            </div>
+            <button class="btn btn-blue" onclick="pOpenModal('p-modal-pin-aktif')">Mulai Menabung Sekarang</button>
+          </div>
+        </div>
+
+        <!-- P-SCREEN 4: HUB PIJAR BY BTN ORTU -->
+        <div id="p-screen-hub" class="screen">
+          <div class="sub-header">
+            <div class="logo-pijar-banner-wrap">
+                    <img src="logo-dark.png" alt="Pijar by BTN" />
+                  </div>
+            <span class="pill" style="background:rgba(255,255,255,0.18); color:#fff;" data-child-first>Arka</span>
+          </div>
+          <div class="sub-body">
+            <div class="tabs">
+              <button id="btn-p-tab-tabungan" class="tab active" onclick="pSwitchTab('p-tab-tabungan')">Tabungan</button>
+              <button id="btn-p-tab-prestasi" class="tab" onclick="pSwitchTab('p-tab-prestasi')">Prestasi</button>
+              <button id="btn-p-tab-jajan" class="tab" onclick="pSwitchTab('p-tab-jajan')">Uang Jajan <span id="p-tab-jajan-dot"></span></button>
+            </div>
+
+            <!-- P-TAB 1: TABUNGAN -->
+            <div id="p-tab-tabungan" class="tab-panel active">
+              <div class="card">
+                <div class="card-top">
+                  <span class="pill" style="background:var(--blue-soft); color:var(--blue);"><span id="p-hub-jenjang-badge">Jenjang SD</span> • <span id="p-hub-tenor-badge">6 Tahun</span></span>
+                  <span style="font-size:11.5px; font-weight:700; color:var(--blue); cursor:pointer;" onclick="pOpenModal('p-sheet-bunga')">Bunga: <b id="p-hub-rate">1,50%</b> ›</span>
+                </div>
+                <div style="font-size:11.5px; color:var(--muted);">Uang Terkumpul (<span data-child-full>Arka Pratama</span>)</div>
+                <div style="font-size:23px; font-weight:800; margin:3px 0 8px;" id="p-hub-saldo">Rp 6.500.000</div>
+                <div class="track"><div class="fill" id="p-hub-prog" style="width:65%; background:var(--blue);"></div></div>
+                <div class="meta-grid">
+                  <div><div style="font-size:10.5px; color:var(--muted);">Lama Menabung</div><strong id="p-hub-year-lbl" style="font-size:12px;">Tahun 1 dari 6</strong></div>
+                  <div style="text-align:right;"><div style="font-size:10.5px; color:var(--muted);">Setoran Bulanan</div><strong id="p-hub-debet-lbl" style="font-size:12px; color:var(--blue);">Rp 1.000.000</strong></div>
+                </div>
+                <div id="p-pause-banner" class="alert-strip" style="display:none;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                  <span id="p-pause-banner-txt">Dijeda.</span>
+                </div>
+                <div class="btn-row-2">
+                  <button class="btn btn-soft" onclick="pOpenModal('p-sheet-ubah-debet')">Ubah / Jeda Setoran</button>
+                  <button class="btn btn-outline" onclick="pToggleMaturity()"><span id="p-btn-maturity-txt">Simulasi Thn ke-6</span></button>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="row">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <div class="icon-badge" style="background:var(--amber-bg); color:var(--amber);"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                    <div><div style="font-size:11px; color:var(--muted);">Balé Poin Hadiah</div><strong style="font-size:14px; color:var(--amber);">12.000 Poin</strong></div>
+                  </div>
+                  <button class="btn btn-blue btn-xs" onclick="pOpenModal('p-sheet-poin')">Tukar Poin</button>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-top">
+                  <div style="display:flex; align-items:center; gap:9px;">
+                    <div class="icon-badge" style="background:var(--blue-soft); color:var(--blue);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+                    <div><div class="card-title">Konsultan &amp; Pameran Sekolah</div><div style="font-size:11px; color:var(--muted);">Bantuan pilih sekolah terbaik</div></div>
+                  </div>
+                  <span id="p-fair-status" class="pill" style="background:var(--amber-bg); color:var(--amber);">Jatuh Tempo</span>
+                </div>
+                <p id="p-fair-info" style="font-size:12px; color:var(--muted); line-height:1.45;">Undangan pameran dan konsultan sekolah terbuka otomatis saat tabungan selesai.</p>
+                <div id="p-school-tracker" style="display:none; margin-top:10px; border-top:1px solid var(--line); padding-top:10px;">
+                  <div class="row"><span>1. SD Islam Al-Azhar</span><span class="pill" style="background:var(--green-bg); color:var(--green);">Sudah Survei</span></div>
+                  <div class="row" style="margin-bottom:10px;"><span>2. SD HighScope</span><span class="pill" style="background:var(--blue-soft); color:var(--blue);">Tes: 18 Mei</span></div>
+                  <button class="btn btn-blue" onclick="pOpenModal('p-modal-fair')">Lihat Tiket &amp; Jadwal Konsultan</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- P-TAB 2: PRESTASI -->
+            <div id="p-tab-prestasi" class="tab-panel">
+              <div class="card" style="background:linear-gradient(135deg, var(--blue), #1D6FE0); color:#fff;">
+                <div class="card-top" style="margin-bottom:6px;">
+                  <div style="display:flex; align-items:center; gap:9px;">
+                    <div class="icon-badge" style="background:rgba(255,255,255,0.18); color:#FBBF24;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M6 4h12v7a6 6 0 0 1-12 0V4zM12 17v4M8 21h8"/></svg></div>
+                    <div><div style="font-size:13.5px; font-weight:800;">Hadiah Prestasi Anak</div><div style="font-size:11px; opacity:0.88;">Beasiswa Rapor</div></div>
+                  </div>
+                  <span class="pill" style="background:var(--red); color:#fff;">Top 5 Kab/Kota</span>
+                </div>
+                <p style="font-size:11.5px; opacity:0.92; line-height:1.45;">Juara <strong>1–5 tingkat Kabupaten/Kota</strong> mendapat tambahan tabungan <strong>Rp 2.500.000</strong>.</p>
+              </div>
+
+              <div class="card">
+                <div class="card-top"><span class="card-title">Foto Rapor Anak</span></div>
+                <div class="upload-zone" onclick="pSimulateScanRapor()">
+                  <div style="color:var(--blue); margin-bottom:6px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+                  <div id="p-scan-title" style="font-size:12.5px; font-weight:700; color:var(--blue);">Ketuk untuk Foto / Pilih Rapor</div>
+                  <div style="font-size:11px; color:var(--muted); margin-top:2px;">Sistem membaca peringkat rapor otomatis</div>
+                </div>
+                <div class="ocr-box">
+                  <div class="card-top" style="margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid #BBF7D0;"><span style="font-size:12px; font-weight:700; color:#15803D;">Rapor Terverifikasi</span><span class="pill" style="background:var(--green-bg); color:var(--green);">Lolos Hadiah</span></div>
+                  <div class="row" style="border-color:#DCFCE7;"><span style="color:var(--muted);">Nama Siswa</span><strong data-child-full>Arka Pratama</strong></div>
+                  <div class="row" style="border-color:#DCFCE7;"><span style="color:var(--muted);">Nilai Rata-rata</span><strong>95,8 / 100</strong></div>
+                  <div class="row" style="border-bottom:none; padding-bottom:10px;"><span style="color:var(--muted);">Peringkat Daerah</span><span class="pill" style="background:#fff; border:1px solid #86EFAC; color:#15803D;">#3 Kab. Tangerang</span></div>
+                  <button id="p-btn-klaim-rapor" class="btn btn-green" onclick="pOpenModal('p-modal-beasiswa')">Ambil Beasiswa Rp 2.500.000</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- P-TAB 3: UANG JAJAN -->
+            <div id="p-tab-jajan" class="tab-panel">
+              <div class="card">
+                <div class="card-top" style="margin-bottom:6px;"><span class="pill" style="background:var(--green-bg); color:var(--green);">● Akun Anak Aktif</span><span style="font-size:11px; color:var(--muted); font-weight:600;">QRIS Anak</span></div>
+                <div style="font-size:11.5px; color:var(--muted);">Saldo Uang Jajan <span data-child-first>Arka</span></div>
+                <div style="font-size:24px; font-weight:800; margin:3px 0 12px;" id="p-jajan-saldo">Rp 500.000</div>
+                <button class="btn btn-blue" onclick="pOpenModal('p-sheet-topup-jajan')">+ Isi Saldo Uang Jajan</button>
+              </div>
+
+              <div class="card" id="p-request-anak-card" style="border:1px solid #FDE68A;">
+                <div class="card-top"><span class="card-title">Request Anak</span><span id="p-req-badge" class="pill" style="background:var(--green-bg); color:var(--green);">Aman</span></div>
+                <div id="p-request-pending-box" style="display:none;">
+                  <div style="background:#F8FAFC; border-radius:12px; padding:11px 12px; border:1px solid #E2E8F0; margin-bottom:10px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"><strong id="p-req-title" style="font-size:13px;">Gramedia Karawaci</strong><strong id="p-req-amt" style="font-size:14px; color:var(--blue);">Rp 85.000</strong></div>
+                    <div id="p-req-reason-txt" style="font-size:11px; color:var(--muted);">Menunggu konfirmasi orang tua</div>
+                  </div>
+                  <div class="btn-row-2"><button class="btn btn-danger-soft" onclick="resolvePendingRequest(false)">Tolak</button><button id="p-req-approve-btn" class="btn btn-blue" onclick="resolvePendingRequest(true)">Izinkan</button></div>
+                </div>
+                <div id="p-request-empty-box" style="font-size:12px; color:var(--muted);">Belum ada permintaan belanja baru dari <span data-child-first>Arka</span>.</div>
+              </div>
+
+              <div class="card">
+                <div class="card-top" style="margin-bottom:4px;"><span class="card-title">Aturan Belanja Anak</span></div>
+                <div class="switch-row" style="border-bottom:none;">
+                  <div><div style="font-size:12.5px; font-weight:700;">Atur Batas Jajan Anak</div><div style="font-size:11px; color:var(--muted);" id="p-batas-status-sub">Aktif • Batasi belanja harian/mingguan</div></div>
+                  <div id="p-toggle-batas-jajan" class="toggle on" onclick="pToggleBatasJajan()"></div>
+                </div>
+                <div id="p-batas-jajan-inputs" style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:10px; margin:4px 0 10px;">
+                  <div style="display:grid; grid-template-columns:1fr 1.35fr; gap:8px;">
+                    <select id="p-select-periode-batas" class="input" style="margin-bottom:0; padding:9px 10px; font-size:12.5px;" onchange="pUpdateLimitSettings()">
+                      <option value="harian" selected>Harian</option><option value="mingguan">Mingguan</option>
+                    </select>
+                    <div class="rupiah-box" style="margin-bottom:0; height:40px; padding:0 10px;"><span class="rp-pre" style="font-size:12px;">Rp</span><input id="p-input-batas-jajan" class="rp-inp" style="font-size:13px;" type="text" inputmode="numeric" value="120.000" oninput="pFormatBatasJajan(this)" /></div>
+                  </div>
+                </div>
+                <div class="switch-row" style="border-top:1px solid var(--line); border-bottom:none; padding-top:10px;">
+                  <div><div style="font-size:12.5px; font-weight:700;">Minta Izin Orang Tua</div><div id="p-izin-dynamic-desc" style="font-size:11px; color:var(--muted); margin-top:2px;">Jika belanja melebihi batas harian (Rp 120.000)</div></div>
+                  <div id="p-toggle-izin-ortu" class="toggle on" onclick="pToggleIzinOrtu()"></div>
+                </div>
+              </div>
+
+              <div class="card"><div class="card-top"><span class="card-title">Catatan Belanja <span data-child-first>Arka</span></span></div><div id="p-jajan-history-list"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODALS ORTU -->
+        <div id="p-sheet-ubah-debet" class="modal" onclick="pCloseModal('p-sheet-ubah-debet')">
+          <div class="modal-sheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+            <div style="font-size:15px; font-weight:800; margin-bottom:4px;">Ubah atau Jeda Setoran Bulanan</div>
+            <div style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Sesuaikan atau jeda setoran kapan saja tanpa denda.</div>
+            <div class="tabs"><button id="p-mode-ubah-btn" class="tab active" onclick="pSetDebetMode('ubah')">Ubah Nominal</button><button id="p-mode-jeda-btn" class="tab" onclick="pSetDebetMode('jeda')">Jeda Sementara</button></div>
+            <div id="p-section-ubah-nominal">
+              <div class="chip-row-4"><button class="chip" onclick="pPickEditDebet(100000, this)">100rb</button><button class="chip" onclick="pPickEditDebet(250000, this)">250rb</button><button class="chip" onclick="pPickEditDebet(500000, this)">500rb</button><button class="chip active" onclick="pPickEditDebet(1000000, this)">1 Juta</button></div>
+              <div class="rupiah-box"><span class="rp-pre">Rp</span><input id="p-input-edit-debet" class="rp-inp" type="text" inputmode="numeric" value="1.000.000" oninput="pFormatEditDebet(this)" /><span class="rp-suf">/ bulan</span></div>
+            </div>
+            <div id="p-section-jeda-sementara" style="display:none;">
+              <label class="field-label">Pilih Lama Jeda Setoran</label>
+              <div class="chips"><button class="chip" onclick="pPickPauseMonths(1, this)">1 Bulan</button><button class="chip active" onclick="pPickPauseMonths(3, this)">3 Bulan</button><button class="chip" onclick="pPickPauseMonths(6, this)">6 Bulan</button></div>
+              <div style="background:var(--green-bg); color:var(--green); font-size:11.5px; font-weight:600; padding:9px 12px; border-radius:12px; margin-bottom:12px;">✓ Tabungan tetap aman dan tetap berbunga.</div>
+            </div>
+            <button class="btn btn-blue" onclick="pSaveDebetChanges()">Simpan Pengaturan</button>
+          </div>
+        </div>
+
+        <div id="p-sheet-notifikasi" class="modal" onclick="pCloseModal('p-sheet-notifikasi')">
+          <div class="modal-sheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+            <div class="card-top" style="margin-bottom:12px;"><strong style="font-size:15px;">Notifikasi Anda</strong><button class="btn btn-soft btn-xs" onclick="pCloseModal('p-sheet-notifikasi')">Tutup</button></div>
+            <div id="p-notif-pending-card" class="card" style="background:var(--red-bg); border:1px solid #FCA5A5; display:none;">
+              <div class="card-top" style="margin-bottom:6px;"><span id="p-notif-badge-txt" class="pill" style="background:var(--red); color:#fff;">PERLU IZIN</span><span style="font-size:10.5px; color:var(--red-txt); font-weight:700;">Baru saja</span></div>
+              <div id="p-notif-headline" style="font-size:13.5px; font-weight:800; margin-bottom:3px;">Arka ingin belanja</div>
+              <div id="p-notif-sub" style="font-size:11.5px; color:var(--muted); margin-bottom:10px;">Gramedia Karawaci</div>
+              <div class="btn-row-2"><button class="btn btn-outline" onclick="pGoToRequestAnak()">Buka Request</button><button class="btn btn-blue" onclick="pCloseModal('p-sheet-notifikasi'); pOpenModal('p-modal-google-auth')">Jawab (2FA)</button></div>
+            </div>
+            <div class="card" style="border:1px solid #E2E8F0; box-shadow:none;"><div style="font-size:12.5px; font-weight:700;">Tabungan Otomatis Berhasil</div><div style="font-size:11px; color:var(--muted); margin-top:2px;">Rp 1.000.000 telah masuk ke tabungan sekolah.</div></div>
+          </div>
+        </div>
+
+        <div id="p-modal-google-auth" class="modal center">
+          <div class="popup-card" style="text-align:left;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+              <div class="icon-badge" style="background:var(--red-bg); color:var(--red-txt); width:42px; height:42px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <div><div id="p-auth-kicker" style="font-size:10px; font-weight:800; color:var(--red-txt);">VERIFIKASI PENGELUARAN ANAK</div><div id="p-auth-heading" style="font-size:15px; font-weight:800;">Izinkan transaksi ini?</div></div>
+            </div>
+            <p id="p-auth-limit-desc" style="font-size:12px; color:var(--muted); line-height:1.45; margin-bottom:12px;">Konfirmasi sebelum uang terpotong.</p>
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:10px 12px; margin-bottom:12px;">
+              <div class="row" style="padding:5px 0;"><span style="color:var(--muted);">Nama Anak</span><strong data-child-full>Arka Pratama</strong></div>
+              <div class="row" style="padding:5px 0;"><span style="color:var(--muted);">Tujuan / Toko</span><strong id="p-auth-merchant">Gramedia Karawaci</strong></div>
+              <div class="row" style="padding:5px 0;"><span style="color:var(--muted);">Metode</span><strong id="p-auth-method">QRIS Anak</strong></div>
+              <div class="row" style="padding:7px 0 2px; border-bottom:none;"><strong>Nominal</strong><strong id="p-auth-amount" style="font-size:15px; color:var(--blue);">Rp 95.000</strong></div>
+            </div>
+            <div class="btn-row-2" style="margin-bottom:8px;"><button class="btn btn-danger-soft" onclick="resolvePendingRequest(false)">Tolak</button><button id="p-auth-yes-btn" class="btn btn-blue" onclick="resolvePendingRequest(true)">Ya, Izinkan</button></div>
+            <div style="text-align:center;"><span style="font-size:11px; color:var(--blue); font-weight:700; cursor:pointer;" onclick="pCloseModal('p-modal-google-auth'); pGoToRequestAnak()">Buka di Menu Request Anak ›</span></div>
+          </div>
+        </div>
+
+        <div id="p-modal-pin-aktif" class="modal center">
+          <div class="popup-card">
+            <div class="popup-icon" style="background:var(--green-bg); color:var(--green);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div style="font-size:16px; font-weight:800; margin-bottom:6px;">Tabungan Sudah Aktif!</div>
+            <div style="font-size:12.5px; color:var(--muted); line-height:1.45; margin-bottom:14px;">Tabungan <strong data-child-full>Arka Pratama</strong> (<span id="p-modal-plan-desc">Jenjang SD • 6 Tahun</span>) aktif dengan setoran <strong id="p-modal-debet-desc">Rp 1.000.000</strong>/bln.</div>
+            <button class="btn btn-blue" onclick="pCloseModal('p-modal-pin-aktif'); pGo('p-screen-hub'); pSwitchTab('p-tab-tabungan')">Lihat Tabungan Saya</button>
+          </div>
+        </div>
+
+        <div id="p-sheet-bunga" class="modal" onclick="pCloseModal('p-sheet-bunga')">
+          <div class="modal-sheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+            <div style="font-size:15px; font-weight:800; margin-bottom:4px;">Bunga Tabungan (Naik Tiap Tahun)</div>
+            <div style="font-size:12px; color:var(--muted); margin-bottom:12px;">Bunga bertambah tiap tahun hingga maksimal <strong>2,75% / tahun</strong>.</div>
+            <div id="p-bunga-list" style="display:flex; flex-direction:column; gap:6px; font-size:12.5px; margin-bottom:14px;"></div>
+            <button class="btn btn-blue" onclick="pCloseModal('p-sheet-bunga')">Mengerti</button>
+          </div>
+        </div>
+
+        <div id="p-sheet-poin" class="modal" onclick="pCloseModal('p-sheet-poin')">
+          <div class="modal-sheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+            <div style="font-size:15px; font-weight:800; margin-bottom:12px;">Tukar Poin (12.000 Poin)</div>
+            <div class="card" style="border:1px solid #E2E8F0; box-shadow:none;">
+              <div class="row"><div><strong>Gramedia • Diskon 30%</strong><br><span style="font-size:11px; color:var(--muted);">2.500 Poin</span></div><button class="btn btn-blue btn-xs" onclick="pCloseModal('p-sheet-poin'); pShowInfo('Voucher Ditukar', 'Voucher Diskon Gramedia 30% berhasil ditukar!')">Tukar</button></div>
+              <div class="row"><div><strong>Kumon / Ruangguru</strong><br><span style="font-size:11px; color:var(--muted);">Potongan Rp 150rb • 5.000 Poin</span></div><button class="btn btn-blue btn-xs" onclick="pCloseModal('p-sheet-poin'); pShowInfo('Voucher Ditukar', 'Voucher Les Anak berhasil ditukar!')">Tukar</button></div>
+            </div>
+            <button class="btn btn-outline" onclick="pCloseModal('p-sheet-poin')">Tutup</button>
+          </div>
+        </div>
+
+        <div id="p-modal-fair" class="modal center">
+          <div class="popup-card">
+            <span class="pill" style="background:var(--amber-bg); color:var(--amber); margin-bottom:8px;">UNDANGAN KHUSUS</span>
+            <div style="font-size:16px; font-weight:800; margin-bottom:6px;">Tiket Pameran Sekolah</div>
+            <div style="font-size:12px; color:var(--muted); margin-bottom:12px;">Dana pendidikan <strong data-child-full>Arka Pratama</strong> (<strong id="p-fair-total-amt">Rp 10.000.000</strong>) siap digunakan.</div>
+            <div style="background:var(--blue-soft); border:1px dashed var(--blue); border-radius:12px; padding:10px; text-align:left; font-size:12px; margin-bottom:14px; line-height:1.5;">
+              <div><strong>Pameran Sekolah BTN</strong></div><div style="color:var(--muted);">Sabtu, 24 Mei • JCC Senayan</div><div style="color:var(--blue); font-weight:700; margin-top:3px;">Konsultan: Ibu Larasati, M.Pd</div>
+            </div>
+            <button class="btn btn-blue" onclick="pCloseModal('p-modal-fair')">Lihat Pilihan Sekolah</button>
+          </div>
+        </div>
+
+        <div id="p-modal-beasiswa" class="modal center">
+          <div class="popup-card">
+            <div class="popup-icon" style="background:var(--amber-bg); color:var(--amber);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M6 4h12v7a6 6 0 0 1-12 0V4zM12 17v4M8 21h8"/></svg></div>
+            <div style="font-size:16px; font-weight:800; margin-bottom:6px;">Selamat atas Prestasi <span data-child-first>Arka</span>!</div>
+            <div style="font-size:12px; color:var(--muted); line-height:1.45; margin-bottom:14px;">Peringkat <strong>#3 Kab. Tangerang</strong> terverifikasi. Hadiah <strong>Rp 2.500.000</strong> siap masuk ke tabungan &amp; <strong>+250 Poin</strong> ke HP Anak.</div>
+            <button class="btn btn-green" onclick="pClaimRaporScholarship()">Masukkan ke Tabungan</button>
+          </div>
+        </div>
+
+        <div id="p-sheet-topup-jajan" class="modal" onclick="pCloseModal('p-sheet-topup-jajan')">
+          <div class="modal-sheet" onclick="event.stopPropagation()">
+            <div class="sheet-handle"></div>
+            <div style="font-size:15px; font-weight:800; margin-bottom:4px;">Isi Uang Jajan <span data-child-first>Arka</span></div>
+            <div style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Dari Rekening 1234-5678-9009-876</div>
+            <div class="chips"><button class="chip" onclick="pSelectTopup(50000, this)">Rp 50.000</button><button class="chip active" onclick="pSelectTopup(100000, this)">Rp 100.000</button><button class="chip" onclick="pSelectTopup(250000, this)">Rp 250.000</button></div>
+            <div class="rupiah-box"><span class="rp-pre">Rp</span><input id="p-input-topup-custom" class="rp-inp" type="text" inputmode="numeric" value="100.000" oninput="pFormatTopup(this)" /></div>
+            <button class="btn btn-blue" onclick="pApplyTopup()">Kirim Saldo Sekarang</button>
+          </div>
+        </div>
+
+        <div id="p-modal-info" class="modal center" onclick="pCloseModal('p-modal-info')">
+          <div class="popup-card" onclick="event.stopPropagation()">
+            <div class="popup-icon" style="background:var(--green-bg); color:var(--green);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div id="p-info-title" style="font-size:16px; font-weight:800; margin-bottom:6px;">Berhasil</div>
+            <div id="p-info-msg" style="font-size:12.5px; color:var(--muted); line-height:1.45; margin-bottom:16px;">Data diperbarui.</div>
+            <button class="btn btn-blue" onclick="pCloseModal('p-modal-info')">Mengerti</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- HP KANAN: ANAK (pijar by BTN)                                       -->
+    <!-- =================================================================== -->
+    <div class="phone-col">
+      <div class="role-badge role-child">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        HP Anak • pijar by BTN
+      </div>
+
+      <div id="phone-child" class="phone">
+
+        <!-- SCREEN 1: BERANDA ANAK -->
+        <div id="c-screen-home" class="screen active">
+          <div class="top-section">
+            <div class="header-bar">
+              <!-- Official PNG Logo: Pijar by BTN for dark/blue background (logo-dark.png) -->
+              <div class="logo-pijar-header-wrap">
+                <img src="logo-dark.png" alt="Pijar by BTN" />
+              </div>
+
+              <div class="bell-wrap" onclick="cCheckBudgetPopup()">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span class="notif-dot"></span>
+              </div>
+            </div>
+
+            <div class="greeting-row">
+              <div class="greeting-name">Selamat Malam, <strong data-child-first>Arka</strong></div>
+              <div class="poin-pill" onclick="cGo('c-screen-prestasi')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span id="c-top-stars">1.250</span>
+                <span style="font-weight:500; opacity:0.9;">Poin ›</span>
+              </div>
+            </div>
+
+            <div class="carousel">
+              <div class="peek-l"></div>
+              <div class="saldo-card">
+                <div class="rek-tab" onclick="cShowPopup('success', 'Nomor Rekening Disalin', '1100-08-120515 siap ditempel.')">
+                  <span>1100-08-120515</span>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </div>
+                <svg class="card-art" viewBox="0 0 340 170" preserveAspectRatio="none">
+                  <circle cx="295" cy="18" r="34" stroke="#E2E8F0" stroke-width="1" fill="none"/>
+                  <circle cx="295" cy="18" r="48" stroke="#E2E8F0" stroke-width="1" fill="none"/>
+                  <path d="M0 135 Q 90 105 190 125 T 340 112 L 340 170 L 0 170 Z" fill="#EDF2FB"/>
+                  <rect x="280" y="68" width="44" height="90" rx="14" fill="#6D54D6" opacity="0.22"/>
+                  <rect x="262" y="85" width="42" height="75" rx="12" fill="#4338CA" opacity="0.28"/>
+                </svg>
+
+                <div class="card-inner">
+                  <div>
+                    <div style="font-size:12px; font-weight:600; color:#475569;">Saldo Uang Saku</div>
+                    <div style="display:flex; align-items:center; gap:7px; margin-top:4px;">
+                      <span style="font-size:16px; font-weight:700; color:#64748B;">Rp</span>
+                      <span id="c-home-saldo" style="font-size:23px; font-weight:800; color:#0F172A; letter-spacing:-0.02em;">500.000</span>
+                      <button onclick="cToggleSaldo()" style="background:none; border:none; cursor:pointer; color:#64748B; display:flex; align-items:center;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      </button>
+                    </div>
+                    <div style="font-size:10.5px; color:var(--green); font-weight:600; margin-top:2px;">Siap dipakai</div>
+                  </div>
+
+                  <div class="edu-box">
+                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; margin-bottom:5px;">
+                      <span style="font-weight:700; color:var(--text);">Tabungan Pendidikan (Ortu)</span>
+                      <span id="c-edu-pct" style="font-weight:700; color:var(--blue);">65%</span>
+                    </div>
+                    <div class="track" style="height:6px; margin-bottom:4px;"><div id="c-edu-bar" class="fill" style="width:65%; background:linear-gradient(90deg, var(--blue), #3B82F6);"></div></div>
+                    <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--muted);">
+                      <span>Terkumpul <strong id="c-edu-cur" style="color:var(--text);">Rp 6.500.000</strong></span>
+                      <span id="c-edu-target">Target Rp 10.000.000</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="peek-r"></div>
+            </div>
+
+            <div class="dots"><div class="dot-a"></div><div class="dot"></div><div class="dot"></div></div>
+          </div>
+
+          <div class="sheet">
+            <div class="card">
+              <div class="card-top">
+                <span id="c-budget-title" class="card-title">Anggaran Harian</span>
+                <span id="c-budget-pill" class="pill" style="background:var(--green-bg); color:var(--green);">29% Aman</span>
+              </div>
+              <div class="track" style="margin-bottom:10px;"><div id="c-budget-bar" class="fill" style="width:29%; background:#16A34A;"></div></div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="font-size:12px; color:var(--muted);"><strong id="c-txt-spent" style="color:var(--text);">Rp 35.000</strong> / <span id="c-txt-limit">Rp 120.000</span></div>
+                <div id="c-sisa-wrap" style="font-size:12px; font-weight:700; color:var(--blue);">Sisa <span id="c-txt-sisa">Rp 85.000</span></div>
+              </div>
+            </div>
+
+            <div class="card" style="padding:18px 14px;">
+              <div class="grid-3">
+                <div class="m-item" onclick="cGo('c-screen-transfer')">
+                  <div class="m-circle" style="background:#3C72EB;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg></div>
+                  <div class="m-label">Transfer</div>
+                </div>
+                <div class="m-item" onclick="cGo('c-screen-prestasi')">
+                  <div class="m-circle" style="background:#F59E0B;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M6 4h12v7a6 6 0 0 1-12 0V4zM12 17v4M8 21h8"/></svg></div>
+                  <div class="m-label">Prestasi</div>
+                </div>
+                <div class="m-item" onclick="cGo('c-screen-beasiswa')">
+                  <div class="m-circle" style="background:#A86BEA;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+                  <div class="m-label">Beasiswa</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="cursor:pointer;" onclick="cGo('c-screen-beasiswa')">
+              <div class="card-top" style="margin-bottom:8px;"><span class="card-title">Peluang Beasiswa</span><span id="c-home-qual-pill" class="pill" style="background:var(--green-bg); color:var(--green);">3 Terbuka ›</span></div>
+              <div class="track"><div id="c-home-next-bar" class="fill" style="width:83%; background:var(--blue);"></div></div>
+              <div id="c-home-next-txt" style="font-size:11px; color:var(--muted); margin-top:7px;">1.250 / 1.500 Poin • Beasiswa Pemimpin Muda BTN</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCREEN 2: HISTORY -->
+        <div id="c-screen-history" class="screen">
+          <div class="sub-header"><div class="sub-left"><button class="back-btn" onclick="cGo('c-screen-home')">←</button><div class="sub-title">History &amp; Ringkasan</div></div></div>
+          <div class="sub-body">
+            <div class="card">
+              <div class="card-top" style="margin-bottom:10px;"><span class="card-title">Dashboard Bulan Ini</span><span class="pill" style="background:var(--blue-soft); color:var(--blue);">Nov 2026</span></div>
+              <div class="stat-grid">
+                <div class="stat-box"><div style="font-size:10.5px; color:var(--muted);">Uang Saku Masuk</div><div id="c-hist-total-in" style="font-size:14px; font-weight:800; color:var(--green); margin-top:2px;">+Rp 500.000</div></div>
+                <div class="stat-box"><div style="font-size:10.5px; color:var(--muted);">Total Keluar</div><div id="c-hist-total-out" style="font-size:14px; font-weight:800; color:var(--red-txt); margin-top:2px;">-Rp 55.000</div></div>
+              </div>
+              <div style="font-size:11px; font-weight:600; color:var(--muted);">Kategori Pengeluaran</div>
+              <div class="stacked-bar"><div style="width:50%; background:#16A34A;"></div><div style="width:30%; background:#1254B5;"></div><div style="width:20%; background:#3C72EB;"></div></div>
+              <div style="display:flex; justify-content:space-between; font-size:10.5px; color:var(--muted);"><span><b style="color:#16A34A;">●</b> Makanan 50%</span><span><b style="color:#1254B5;">●</b> Edukasi 30%</span><span><b style="color:#3C72EB;">●</b> Transfer 20%</span></div>
+            </div>
+            <div class="card"><div class="card-top"><span class="card-title">Riwayat Transaksi</span></div><div id="c-riwayat-list"></div></div>
+          </div>
+        </div>
+
+        <!-- SCREEN 3: PROFILE -->
+        <div id="c-screen-profile" class="screen">
+          <div class="sub-header"><div class="sub-left"><button class="back-btn" onclick="cGo('c-screen-home')">←</button><div class="sub-title">Profil Saya</div></div></div>
+          <div class="sub-body">
+            <div class="card" style="text-align:center; padding:20px 16px;">
+              <div id="c-prof-avatar" style="width:60px; height:60px; border-radius:50%; background:var(--blue-soft); color:var(--blue); font-size:20px; font-weight:800; display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">AP</div>
+              <div style="font-size:16px; font-weight:800;" data-child-full>Arka Pratama</div>
+              <div style="font-size:12px; color:var(--muted); margin-top:2px;">@arka_bintang • Rek. 1100-08-120515</div>
+            </div>
+            <div class="card">
+              <div class="row"><span style="color:var(--muted);">Orang Tua / Wali</span><strong>Budi Santoso</strong></div>
+              <div class="row"><span style="color:var(--muted);">Tabungan Pendidikan</span><strong id="c-prof-edu" style="color:var(--green);">Rp 6.500.000</strong></div>
+              <div class="row"><span style="color:var(--muted);">Anggaran Harian</span><strong id="c-prof-limit" style="color:var(--blue);">Rp 120.000</strong></div>
+            </div>
+            <div class="card">
+              <div class="row" style="cursor:pointer;" onclick="cShowPopup('warning', 'Ubah PIN', 'Perubahan PIN memerlukan verifikasi SMS ke nomor terdaftar.')"><strong>Ubah PIN Aplikasi</strong><span style="color:var(--muted);">›</span></div>
+              <div class="row" style="cursor:pointer;" onclick="cShowPopup('success', 'BTN Call 1500286', 'Layanan bantuan nasabah tersedia 24 jam.')"><strong>Pusat Bantuan</strong><span style="color:var(--muted);">›</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCREEN 4: TRANSFER -->
+        <div id="c-screen-transfer" class="screen">
+          <div class="sub-header"><div class="sub-left"><button class="back-btn" onclick="cGo('c-screen-home')">←</button><div class="sub-title">Transfer</div></div></div>
+          <div class="sub-body">
+            <div class="tabs"><button id="c-t-send" class="tab active" onclick="cSwitchTransfer('send')">Kirim Dana</button><button id="c-t-req" class="tab" onclick="cSwitchTransfer('req')">Minta Dana</button></div>
+            <div id="c-box-send" class="card">
+              <label class="field-label">Bank Tujuan</label>
+              <select id="c-tf-bank" class="input"><option value="BTN">Bank BTN</option><option value="BCA">Bank BCA</option><option value="BRI">Bank BRI</option><option value="Mandiri">Bank Mandiri</option><option value="BNI">Bank BNI</option><option value="BSI">Bank Syariah Indonesia (BSI)</option><option value="Lainnya">Bank / E-Wallet Lainnya</option></select>
+              <label class="field-label">Nomor Rekening Tujuan</label>
+              <input id="c-tf-rek" type="text" inputmode="numeric" class="input" placeholder="Masukkan nomor rekening" value="0014829102">
+              <label class="field-label">Nama Penerima (Opsional)</label>
+              <input id="c-tf-name" type="text" class="input" placeholder="Nama pemilik rekening" value="Raka Pratama">
+              <label class="field-label">Nominal Transfer</label>
+              <div class="nominal-box" onclick="cOpenNumpad('c-tf-amt', 'Nominal Transfer')"><span style="font-size:13px; font-weight:700; color:var(--muted);">Rp</span><span id="disp-c-tf-amt" class="nominal-val">10.000</span></div>
+              <input id="c-tf-amt" type="hidden" value="10000">
+              <button class="btn btn-blue" onclick="cSubmitFreeTransfer()">Kirim Transfer</button>
+            </div>
+            <div id="c-box-send-recent" class="card">
+              <div class="card-top"><span class="card-title">Tujuan Terakhir</span></div>
+              <div class="row" style="cursor:pointer;" onclick="cFillRecipient('BTN', '11009910221', 'Koperasi SD Harapan')"><div><strong>Koperasi SD Harapan</strong><br><span style="font-size:11px; color:var(--muted);">BTN • 11009910221</span></div><span style="font-size:11px; color:var(--blue); font-weight:600;">Pilih ›</span></div>
+              <div class="row" style="cursor:pointer;" onclick="cFillRecipient('BCA', '5420192831', 'Nadia (Kakak)')"><div><strong>Nadia (Kakak)</strong><br><span style="font-size:11px; color:var(--muted);">BCA • 5420192831</span></div><span style="font-size:11px; color:var(--blue); font-weight:600;">Pilih ›</span></div>
+            </div>
+            <div id="c-box-req" class="card" style="display:none;">
+              <label class="field-label">Nominal Permintaan</label>
+              <div class="nominal-box" onclick="cOpenNumpad('c-req-amt', 'Nominal Minta Dana')"><span style="font-size:13px; font-weight:700; color:var(--muted);">Rp</span><span id="disp-c-req-amt" class="nominal-val">50.000</span></div>
+              <input id="c-req-amt" type="hidden" value="50000">
+              <label class="field-label">Keperluan</label>
+              <input id="c-req-note" type="text" class="input" placeholder="Keperluan" value="Iuran ekstrakurikuler">
+              <button class="btn btn-blue" onclick="cSubmitRequestMoney()">Kirim ke Orang Tua</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCREEN 5: QRIS -->
+        <div id="c-screen-qris" class="screen">
+          <div class="qris-full">
+            <video id="qris-video" autoplay playsinline muted></video>
+            <div class="qris-top-bar">
+              <button class="back-btn" onclick="cGo('c-screen-home')">←</button>
+              <div class="qris-logo-pill">QRIS</div>
+              <div style="font-size:11px; font-weight:600; background:rgba(0,0,0,0.45); padding:5px 9px; border-radius:99px;">Sisa <span id="c-qris-sisa">Rp 85.000</span></div>
+            </div>
+            <div class="scan-center">
+              <div class="scan-box"><div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div><div class="scan-laser"></div></div>
+              <div style="color:#fff; font-size:12px; font-weight:600; margin-top:16px; text-shadow:0 1px 4px rgba(0,0,0,0.8);">Arahkan kamera ke kode QRIS</div>
+            </div>
+            <div id="c-cam-fallback" class="cam-fallback">
+              <div style="margin-bottom:10px; opacity:0.9;"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+              <div style="font-size:12.5px; margin-bottom:14px;">Izinkan akses kamera untuk memindai QRIS</div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-blue btn-xs" onclick="cStartCamera()">Aktifkan Kamera</button>
+                <button class="btn btn-outline btn-xs" style="color:#fff; border-color:rgba(255,255,255,0.4); background:transparent;" onclick="cOpenQrisPay('Kantin Sekolah', 'Makanan')">Simulasi QRIS</button>
+              </div>
+            </div>
+            <div class="qris-bottom-bar">
+              <button class="glass-btn" onclick="cOpenQrisPay('Kantin Sekolah', 'Makanan')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Galeri / Simulasi QR
+              </button>
+              <button class="glass-btn" onclick="cSwitchCamera()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                Putar Kamera
+              </button>
+            </div>
+          </div>
+
+          <div id="c-qris-pay-modal" class="modal">
+            <div class="modal-sheet">
+              <div class="sheet-handle"></div>
+              <span class="pill" style="background:var(--green-bg); color:var(--green); margin-bottom:8px;" id="c-qp-cat">Makanan</span>
+              <div style="font-size:16px; font-weight:800;" id="c-qp-merchant">Kantin Sekolah</div>
+              <div style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">QRIS Terdeteksi • Pijar by BTN</div>
+              <label class="field-label">Nominal Pembayaran</label>
+              <div class="nominal-box" onclick="cOpenNumpad('c-qp-amt', 'Nominal Bayar QRIS')"><span style="font-size:13px; font-weight:700; color:var(--muted);">Rp</span><span id="disp-c-qp-amt" class="nominal-val">15.000</span></div>
+              <input id="c-qp-amt" type="hidden" value="15000">
+              <div class="btn-row-2"><button class="btn btn-outline" onclick="cCloseQrisPay()">Batal</button><button class="btn btn-blue" onclick="cConfirmQrisPay()">Bayar Sekarang</button></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCREEN 6: PRESTASI -->
+        <div id="c-screen-prestasi" class="screen">
+          <div class="sub-header"><div class="sub-left"><button class="back-btn" onclick="cGo('c-screen-home')">←</button><div class="sub-title">Prestasi &amp; Leaderboard</div></div></div>
+          <div class="sub-body">
+            <div class="card" style="background:linear-gradient(135deg, var(--blue), #1D6FE0); color:#fff;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div><div style="font-size:11px; opacity:0.85;">Star Points</div><div style="font-size:24px; font-weight:800; display:flex; align-items:center; gap:6px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span id="c-pres-stars">1.250</span></div></div>
+                <span class="pill" style="background:var(--red); color:#fff;">Peringkat #4</span>
+              </div>
+              <div class="track" style="background:rgba(255,255,255,0.22); margin:10px 0 8px;"><div id="c-pres-next-bar" class="fill" style="width:83%; background:#FBBF24;"></div></div>
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <div id="c-pres-next-txt" style="font-size:11px; opacity:0.9;">250 poin lagi → Pemimpin Muda</div>
+                <button id="c-btn-bonus-star" class="btn btn-xs" style="background:#FBBF24; color:#78350F; font-weight:800;" onclick="cClaimStarBonus()">+250 Reward</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top"><span class="card-title">Leaderboard</span></div>
+              <div class="row"><span><strong>#1</strong> Raisa Putri</span><strong>1.850</strong></div>
+              <div class="row"><span><strong>#2</strong> Dimas Pratama</span><strong>1.620</strong></div>
+              <div class="row"><span><strong>#3</strong> Keisya Nabila</span><strong>1.490</strong></div>
+              <div class="row" style="background:var(--blue-soft); padding:9px 10px; border-radius:10px; margin-top:4px;"><span><strong>#4 <span data-child-first>Arka</span> (Anda)</strong></span><strong id="c-lb-me" style="color:var(--blue);">1.250</strong></div>
+            </div>
+            <div class="card"><div class="card-top"><span class="card-title">Beasiswa Qualified</span></div><div id="c-pres-qual-list"></div></div>
+            <div class="card"><div class="card-top"><span class="card-title">Prestasi Terverifikasi</span></div><div id="c-cert-list"></div></div>
+          </div>
+        </div>
+
+        <!-- SCREEN 7: BEASISWA -->
+        <div id="c-screen-beasiswa" class="screen">
+          <div class="sub-header"><div class="sub-left"><button class="back-btn" onclick="cGo('c-screen-home')">←</button><div class="sub-title">Program Beasiswa</div></div></div>
+          <div class="sub-body">
+            <div class="bea-summary">
+              <div><div style="font-size:10.5px; opacity:0.85;">Star Points Anda</div><div style="font-size:19px; font-weight:800; display:flex; align-items:center; gap:5px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="#FBBF24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span id="c-bea-stars">1.250</span></div></div>
+              <div style="text-align:right; font-size:11px;"><div id="c-bea-sum-qual" style="font-weight:700;">3 Qualified • 1 Seleksi</div><div id="c-bea-sum-lock" style="opacity:0.85; margin-top:2px;">9 Beasiswa Terkunci</div></div>
+            </div>
+            <div class="chips">
+              <button class="chip active" data-filter="all" onclick="cSetFilter('all')">Semua</button>
+              <button class="chip" data-filter="qual" onclick="cSetFilter('qual')">Qualified</button>
+              <button class="chip" data-filter="progress" onclick="cSetFilter('progress')">On Progress</button>
+              <button class="chip" data-filter="lock" onclick="cSetFilter('lock')">Terkunci</button>
+            </div>
+            <div id="c-beasiswa-tracker-card" class="card">
+              <div class="card-top"><span class="card-title">Sedang Seleksi (On Progress)</span><span id="c-prog-count-pill" class="pill" style="background:var(--amber-bg); color:var(--amber);">1 Aktif</span></div>
+              <div id="c-beasiswa-tracker" style="font-size:12px; color:var(--muted);">Belum ada pengajuan aktif.</div>
+            </div>
+            <div id="c-beasiswa-list"></div>
+          </div>
+        </div>
+
+        <!-- STRUK QRIS -->
+        <div id="qris-receipt-modal">
+          <div class="rcpt-top">
+            <div style="display:flex; justify-content:space-between; align-items:center;"><span style="font-size:12px; font-weight:800;">pijar • by btn</span><span class="qris-logo-pill" style="font-size:10px; padding:3px 8px;">QRIS</span></div>
+            <div class="rcpt-check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div style="font-size:16px; font-weight:800;">Pembayaran QRIS Berhasil</div>
+            <div id="c-rcpt-time" style="font-size:11px; opacity:0.88; margin-top:3px;">15 Nov 2026</div>
+          </div>
+          <div class="rcpt-scroll">
+            <div class="rcpt-paper">
+              <div style="text-align:center;"><div style="font-size:11px; color:var(--muted); font-weight:600;">Total Pembayaran</div><div id="c-rcpt-total-big" style="font-size:26px; font-weight:800; margin-top:2px;">Rp 15.000</div><div style="margin-top:6px;"><span class="pill" style="background:var(--green-bg); color:var(--green);">● TRANSAKSI BERHASIL</span></div></div>
+              <div class="rcpt-divider"></div>
+              <div class="rcpt-row"><span>No. Referensi</span><strong id="c-rcpt-ref">QR2026111590281</strong></div>
+              <div class="rcpt-row"><span>Merchant</span><strong id="c-rcpt-merchant">Kantin Sekolah</strong></div>
+              <div class="rcpt-row"><span>Kategori</span><strong id="c-rcpt-cat">Makanan</strong></div>
+              <div class="rcpt-row"><span>NMID Merchant</span><strong>ID102008841290</strong></div>
+              <div class="rcpt-row"><span>Sumber Dana</span><strong>Pijar by BTN • 1100-08-120515</strong></div>
+              <div class="rcpt-divider"></div>
+              <div class="rcpt-row"><span>Nominal Transaksi</span><strong id="c-rcpt-nominal">Rp 15.000</strong></div>
+              <div class="rcpt-row"><span>Biaya Admin</span><strong>Rp 0</strong></div>
+              <div class="rcpt-row" style="font-size:13px; padding-top:8px;"><strong>Total Dibayar</strong><strong id="c-rcpt-total-row" style="color:var(--blue); font-size:13.5px;">Rp 15.000</strong></div>
+              <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:10px 12px; margin-top:12px;">
+                <div class="rcpt-row" style="padding:2px 0;"><span>Sisa Saldo Uang Saku</span><strong id="c-rcpt-sisa-saldo">Rp 485.000</strong></div>
+                <div class="rcpt-row" style="padding:2px 0;"><span>Sisa Anggaran Harian</span><strong id="c-rcpt-sisa-budget" style="color:var(--green);">Rp 70.000</strong></div>
+              </div>
+              <div id="c-rcpt-warn-box" class="rcpt-warn-box" style="display:none;"><span id="c-rcpt-warn-txt">Anggaran harian terpakai.</span></div>
+              <div style="text-align:center; font-size:10.5px; color:var(--muted); margin-top:14px;">Struk ini adalah bukti pembayaran sah dari<br><strong>Pijar by Bank BTN</strong></div>
+            </div>
+          </div>
+          <div class="rcpt-footer-bar"><button class="btn btn-outline" style="flex:1;" onclick="cShareReceipt()">Bagikan Struk</button><button class="btn btn-blue" style="flex:1.2;" onclick="cCloseQrisReceipt()">Selesai</button></div>
+        </div>
+
+        <!-- NUMPAD -->
+        <div id="numpad-modal" class="modal">
+          <div class="modal-sheet">
+            <div class="sheet-handle"></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><strong id="c-numpad-title" style="font-size:13px;">Masukkan Nominal</strong><button style="background:none; border:none; color:var(--muted); font-size:12px; font-weight:700; cursor:pointer;" onclick="cCloseNumpad()">Tutup</button></div>
+            <div class="numpad-display">Rp <span id="c-numpad-disp">0</span></div>
+            <div class="preset-row"><button class="preset-chip" onclick="cSetNumpadPreset(10000)">10.000</button><button class="preset-chip" onclick="cSetNumpadPreset(20000)">20.000</button><button class="preset-chip" onclick="cSetNumpadPreset(50000)">50.000</button><button class="preset-chip" onclick="cSetNumpadPreset(100000)">100.000</button></div>
+            <div class="keypad-grid">
+              <button class="k-btn" onclick="cNumKey('1')">1</button><button class="k-btn" onclick="cNumKey('2')">2</button><button class="k-btn" onclick="cNumKey('3')">3</button>
+              <button class="k-btn" onclick="cNumKey('4')">4</button><button class="k-btn" onclick="cNumKey('5')">5</button><button class="k-btn" onclick="cNumKey('6')">6</button>
+              <button class="k-btn" onclick="cNumKey('7')">7</button><button class="k-btn" onclick="cNumKey('8')">8</button><button class="k-btn" onclick="cNumKey('9')">9</button>
+              <button class="k-btn" onclick="cNumKey('000')" style="font-size:15px;">000</button><button class="k-btn" onclick="cNumKey('0')">0</button><button class="k-btn" onclick="cNumBackspace()">⌫</button>
+            </div>
+            <button class="btn btn-blue" onclick="cApplyNumpad()">Selesai</button>
+          </div>
+        </div>
+
+        <!-- WAIT 2FA MODAL -->
+        <div id="c-wait-2fa-modal" class="modal center">
+          <div class="popup-card">
+            <div class="popup-icon" style="background:var(--amber-bg); color:var(--amber);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div style="font-size:16px; font-weight:800; margin-bottom:6px;">Menunggu Izin Orang Tua</div>
+            <div style="font-size:12.5px; color:var(--muted); line-height:1.45; margin-bottom:14px;">Transaksi melebihi batas anggaran. Silakan konfirmasi di HP Orang Tua (kiri).</div>
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:10px 12px; margin-bottom:14px;">
+              <div class="row" style="padding:4px 0;"><span style="color:var(--muted);">Tujuan</span><strong id="c-wait-merchant">Gramedia Karawaci</strong></div>
+              <div class="row" style="padding:4px 0; border-bottom:none;"><span style="color:var(--muted);">Nominal</span><strong id="c-wait-amt" style="color:var(--blue);">Rp 95.000</strong></div>
+            </div>
+            <button class="btn btn-outline" onclick="cancelPending2FA()">Batalkan Transaksi</button>
+          </div>
+        </div>
+
+        <!-- POPUP ANAK -->
+        <div id="c-popup-modal" class="modal center">
+          <div class="popup-card">
+            <div id="c-pop-icon" class="popup-icon" style="background:var(--green-bg); color:var(--green);">✓</div>
+            <div id="c-pop-title" style="font-size:16px; font-weight:800; margin-bottom:6px;">Berhasil</div>
+            <div id="c-pop-msg" style="font-size:12.5px; color:var(--muted); line-height:1.45; margin-bottom:18px;">Transaksi selesai diproses.</div>
+            <div id="c-pop-actions" style="display:flex; gap:8px;"><button class="btn btn-blue" onclick="cClosePopup()">Mengerti</button></div>
+          </div>
+        </div>
+
+        <!-- BOTTOM NAV ANAK -->
+        <div id="c-bottom-nav" class="nav-wrap">
+          <svg class="nav-svg" viewBox="0 0 390 64" preserveAspectRatio="none">
+            <path d="M0,10 Q0,0 12,0 L132,0 C150,0 156,29 195,29 C234,29 240,0 258,0 L378,0 Q390,0 390,10 L390,64 L0,64 Z" fill="#FFFFFF"/>
+          </svg>
+          <div class="qris-fab" onclick="cGo('c-screen-qris')">
+            <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
+              <path d="M5 11V7C5 5.9 5.9 5 7 5H11M25 5H29C30.1 5 31 5.9 31 7V11M31 25V29C31 30.1 30.1 31 29 31H25M11 31H7C5.9 31 5 30.1 5 29V25" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+              <text x="18" y="21" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-weight="800" font-size="9">QRIS</text>
+            </svg>
+          </div>
+          <div class="nav-items">
+            <div id="c-nav-home" class="nav-btn active" onclick="cGo('c-screen-home')"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>Beranda</span></div>
+            <div id="c-nav-history" class="nav-btn" onclick="cGo('c-screen-history')"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><span>History</span></div>
+            <div style="width:66px;"></div>
+            <div id="c-nav-profile" class="nav-btn" onclick="cGo('c-screen-profile')"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg><span>Profile</span></div>
+            <div id="c-nav-keluar" class="nav-btn" onclick="cAskLogout()"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>Keluar</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  const app = {
+    parentName: 'Budi Santoso',
+    parentBalance: 45750000,
+    isParentBalVisible: false,
+    childFullName: 'Arka Pratama',
+    selectedJenjang: 'Jenjang SD',
+    selectedTenor: 6,
+    monthlyDeposit: 1000000,
+    eduCurrentSaldo: 6500000,
+    eduTargetTotal: 10000000,
+    isYearMature: false,
+    debetMode: 'ubah',
+    editDebetAmount: 1000000,
+    pauseMonths: 3,
+    isPaused: false,
+    raporClaimed: false,
+
+    childSaldo: 500000,
+    childHideSaldo: false,
+    childSpentToday: 35000,
+    childMonthIn: 500000,
+    childMonthOut: 55000,
+    topupAmount: 100000,
+
+    isLimitEnabled: true,
+    limitPeriod: 'harian',
+    limitAmount: 120000,
+    requireParent2FA: true,
+    pendingRequest: null,
+
+    history: [
+      { title: 'Kantin Sekolah', method: 'QRIS', cat: 'Makanan', amount: 15000, type: 'out', authNote: 'Hari ini • Tanpa Izin', time: 'Hari ini' },
+      { title: 'Koperasi Sekolah', method: 'QRIS', cat: 'Edukasi', amount: 20000, type: 'out', authNote: 'Hari ini • Dalam Batas', time: 'Hari ini' },
+      { title: 'Transfer ke Nadia (BCA)', method: 'Transfer', cat: 'Transfer', amount: 20000, type: 'out', authNote: 'Kemarin • Diizinkan Budi Santoso', time: 'Kemarin' },
+      { title: 'Uang Saku Ayah Budi', method: 'Masuk', cat: 'Pemasukan', amount: 500000, type: 'in', authNote: '10 Nov • Dari Rekening Ortu', time: '10 Nov' }
+    ],
+
+    stars: 1250,
+    bonusClaimed: false,
+    filter: 'all',
+    certs: [
+      { title: 'Olimpiade Sains SD', pts: 650 },
+      { title: 'Sertifikat Coding Anak', pts: 600 }
+    ],
+    applications: [
+      { id: 1, title: 'Beasiswa Bintang Sains BTN', benefit: 'Rp 1.500.000', step: 3, regNo: 'BS-2026-0419', date: '10 Nov 2026', est: '20 Nov 2026' }
+    ],
+    scholarships: [
+      { id: 1, title: 'Beasiswa Bintang Sains BTN', req: 1000, benefit: 'Rp 1.500.000', cat: 'Sains & Akademik', desc: 'Apresiasi bagi pelajar dengan nilai sains unggul.' },
+      { id: 2, title: 'Beasiswa Pelajar Rajin Menabung', req: 1100, benefit: 'Rp 1.000.000', cat: 'Literasi Finansial', desc: 'Untuk nasabah Pijar by BTN yang konsisten menabung.' },
+      { id: 3, title: 'Beasiswa Literasi Digital', req: 1200, benefit: 'Tablet & Kuota 1 Thn', cat: 'Teknologi', desc: 'Dukungan perangkat belajar dan kursus digital.' },
+      { id: 4, title: 'Beasiswa Pemimpin Muda BTN', req: 1500, benefit: 'Beasiswa Penuh 1 Thn', cat: 'Kepemimpinan', desc: 'Program pembinaan ketua kelas & OSIS aktif.' },
+      { id: 5, title: 'Beasiswa Juara Matematika', req: 1750, benefit: 'Rp 2.500.000 + Sertifikat', cat: 'Akademik', desc: 'Bagi peraih prestasi olimpiade matematika.' },
+      { id: 6, title: 'Beasiswa Inovator Cilik & Coding', req: 2000, benefit: 'Laptop Belajar + Mentoring', cat: 'Teknologi', desc: 'Beasiswa khusus pembuat karya coding & robotik.' },
+      { id: 7, title: 'Beasiswa Seni & Budaya Nusantara', req: 2250, benefit: 'Rp 2.000.000 + Kelas Kreatif', cat: 'Seni & Budaya', desc: 'Dukungan bakat musik, tari, dan seni rupa anak.' },
+      { id: 8, title: 'Beasiswa Bahasa & Sastra Muda', req: 2500, benefit: 'Rp 2.750.000 + Kursus Bahasa', cat: 'Bahasa', desc: 'Pengembangan kemampuan bahasa Inggris & literasi.' },
+      { id: 9, title: 'Beasiswa Atlet Muda Berprestasi', req: 2800, benefit: 'Rp 3.000.000 + Perlengkapan', cat: 'Olahraga', desc: 'Untuk atlet pelajar tingkat kota maupun provinsi.' },
+      { id: 10, title: 'Beasiswa Karakter & Kepedulian Sosial', req: 3100, benefit: 'Rp 3.500.000', cat: 'Sosial', desc: 'Apresiasi pelajar aktif dalam kegiatan lingkungan.' },
+      { id: 11, title: 'Beasiswa Putra-Putri Pendidikan BTN', req: 3500, benefit: 'Dana Pendidikan Rp 5.000.000', cat: 'Prestasi Utama', desc: 'Beasiswa unggulan untuk siswa berprestasi menyeluruh.' },
+      { id: 12, title: 'Beasiswa Global Future Stars', req: 4200, benefit: 'Summer Camp & Rp 7.500.000', cat: 'Internasional', desc: 'Program pertukaran pelajar & kepemimpinan global.' }
+    ],
+
+    facingMode: 'environment',
+    qrisStream: null,
+    qrScanTimer: null,
+    qrisTemp: { merchant: '', cat: '' },
+    lastReceipt: null,
+    numTarget: null,
+    numBuffer: '0'
+  };
+
+  const rp = n => Number(n).toLocaleString('id-ID');
+
+  function syncAll() {
+    const full = app.childFullName.trim() || 'Arka Pratama';
+    const parts = full.split(/\s+/);
+    const initials = (parts[0]?.[0] || 'A') + (parts[1]?.[0] || '');
+    document.querySelectorAll('[data-child-full]').forEach(el => el.textContent = full);
+    document.querySelectorAll('[data-child-first]').forEach(el => el.textContent = parts[0]);
+    document.getElementById('c-prof-avatar').textContent = initials.toUpperCase();
+
+    document.getElementById('p-main-balance-txt').textContent = app.isParentBalVisible ? rp(app.parentBalance) : '••••••••';
+
+    const eduPct = Math.min(100, Math.round((app.eduCurrentSaldo / Math.max(1, app.eduTargetTotal)) * 100));
+    document.getElementById('p-hub-saldo').textContent = 'Rp ' + rp(app.eduCurrentSaldo);
+    document.getElementById('p-hub-prog').style.width = eduPct + '%';
+    document.getElementById('p-home-edu-cur').textContent = 'Rp ' + rp(app.eduCurrentSaldo);
+    document.getElementById('p-home-edu-pct').textContent = eduPct + '%';
+    document.getElementById('p-home-edu-bar').style.width = eduPct + '%';
+    document.getElementById('p-home-child-saldo').textContent = 'Rp ' + rp(app.childSaldo);
+
+    document.getElementById('c-edu-cur').textContent = 'Rp ' + rp(app.eduCurrentSaldo);
+    document.getElementById('c-edu-target').textContent = 'Target Rp ' + rp(app.eduTargetTotal);
+    document.getElementById('c-edu-pct').textContent = eduPct + '%';
+    document.getElementById('c-edu-bar').style.width = eduPct + '%';
+    document.getElementById('c-prof-edu').textContent = 'Rp ' + rp(app.eduCurrentSaldo);
+
+    document.getElementById('p-jajan-saldo').textContent = 'Rp ' + rp(app.childSaldo);
+    document.getElementById('c-home-saldo').textContent = app.childHideSaldo ? '••••••••' : rp(app.childSaldo);
+
+    const periodLabel = app.limitPeriod === 'harian' ? 'Harian' : 'Mingguan';
+    const fmtLimit = 'Rp ' + rp(app.limitAmount);
+    const cBudgetTitle = document.getElementById('c-budget-title');
+    const cBudgetPill = document.getElementById('c-budget-pill');
+    const cBudgetBar = document.getElementById('c-budget-bar');
+    const cSisaWrap = document.getElementById('c-sisa-wrap');
+
+    if (app.isLimitEnabled) {
+      const sisa = Math.max(0, app.limitAmount - app.childSpentToday);
+      const pct = app.limitAmount > 0 ? Math.min(100, Math.round((app.childSpentToday / app.limitAmount) * 100)) : 100;
+      cBudgetTitle.textContent = `Anggaran ${periodLabel}`;
+      document.getElementById('c-txt-spent').textContent = 'Rp ' + rp(app.childSpentToday);
+      document.getElementById('c-txt-limit').textContent = fmtLimit;
+      cSisaWrap.innerHTML = `Sisa <span id="c-txt-sisa">Rp ${rp(sisa)}</span>`;
+      document.getElementById('c-qris-sisa').textContent = 'Rp ' + rp(sisa);
+      document.getElementById('c-prof-limit').textContent = fmtLimit;
+
+      const color = pct < 60 ? '#16A34A' : (pct < 85 ? '#F59E0B' : '#DC2626');
+      const bg = pct < 60 ? '#DCFCE7' : (pct < 85 ? '#FEF3C7' : '#FEE2E2');
+      const txt = pct < 60 ? pct + '% Aman' : (pct < 85 ? pct + '% Terpakai' : pct + '% Hampir Habis');
+      cBudgetBar.style.width = pct + '%'; cBudgetBar.style.background = color;
+      cBudgetPill.style.background = bg; cBudgetPill.style.color = color; cBudgetPill.textContent = txt;
+      document.getElementById('p-izin-dynamic-desc').textContent = `Jika belanja melebihi batas ${app.limitPeriod} (${fmtLimit})`;
+    } else {
+      cBudgetTitle.textContent = `Anggaran ${periodLabel}`;
+      document.getElementById('c-txt-spent').textContent = 'Rp ' + rp(app.childSpentToday);
+      document.getElementById('c-txt-limit').textContent = 'Tanpa Batas';
+      cSisaWrap.innerHTML = `<span style="color:var(--muted);">Bebas</span>`;
+      document.getElementById('c-qris-sisa').textContent = 'Rp ' + rp(app.childSaldo);
+      document.getElementById('c-prof-limit').textContent = 'Tanpa Batas';
+      cBudgetBar.style.width = '100%'; cBudgetBar.style.background = '#94A3B8';
+      cBudgetPill.style.background = '#F1F5F9'; cBudgetPill.style.color = '#475569'; cBudgetPill.textContent = 'Nonaktif';
+      document.getElementById('p-izin-dynamic-desc').textContent = 'Batas jajan dimatikan • Semua transaksi di atas Rp 0 perlu izin';
+    }
+
+    renderPendingRequestUI();
+    renderHistories();
+    renderChildRewards();
+  }
+
+  function renderPendingRequestUI() {
+    const req = app.pendingRequest;
+    const bellBadge = document.getElementById('p-bell-badge');
+    const tabDot = document.getElementById('p-tab-jajan-dot');
+    const notifCard = document.getElementById('p-notif-pending-card');
+    const reqPendingBox = document.getElementById('p-request-pending-box');
+    const reqEmptyBox = document.getElementById('p-request-empty-box');
+    const reqBadge = document.getElementById('p-req-badge');
+
+    if (req) {
+      bellBadge.style.display = 'flex'; bellBadge.textContent = '1';
+      tabDot.textContent = '•'; tabDot.style.color = '#ED1C24';
+      notifCard.style.display = 'block'; reqPendingBox.style.display = 'block'; reqEmptyBox.style.display = 'none';
+      reqBadge.textContent = '1 Menunggu'; reqBadge.style.background = 'var(--red-bg)'; reqBadge.style.color = 'var(--red-txt)';
+
+      const isMinta = req.type === 'minta_dana';
+      document.getElementById('p-req-title').textContent = isMinta ? `Minta Dana: ${req.merchant}` : req.merchant;
+      document.getElementById('p-req-amt').textContent = 'Rp ' + rp(req.amount);
+      document.getElementById('p-req-reason-txt').textContent = req.reason;
+      document.getElementById('p-req-approve-btn').textContent = isMinta ? 'Kirim Dana' : 'Izinkan';
+
+      document.getElementById('p-notif-badge-txt').textContent = isMinta ? 'MINTA DANA ANAK' : 'PERLU IZIN (2FA)';
+      document.getElementById('p-notif-headline').textContent = isMinta ? `${app.childFullName.split(' ')[0]} meminta dana Rp ${rp(req.amount)}` : `${app.childFullName.split(' ')[0]} ingin belanja Rp ${rp(req.amount)}`;
+      document.getElementById('p-notif-sub').textContent = `${req.merchant} • ${req.reason}`;
+
+      document.getElementById('p-auth-kicker').textContent = isMinta ? 'PERMINTAAN DANA ANAK' : 'VERIFIKASI PENGELUARAN ANAK';
+      document.getElementById('p-auth-heading').textContent = isMinta ? 'Kirim uang saku ke anak?' : 'Apakah Anda mengizinkan transaksi ini?';
+      document.getElementById('p-auth-limit-desc').textContent = req.reason;
+      document.getElementById('p-auth-merchant').textContent = req.merchant;
+      document.getElementById('p-auth-method').textContent = req.method;
+      document.getElementById('p-auth-amount').textContent = 'Rp ' + rp(req.amount);
+      document.getElementById('p-auth-yes-btn').textContent = isMinta ? 'Ya, Kirim Dana' : 'Ya, Izinkan';
+    } else {
+      bellBadge.style.display = 'none'; tabDot.textContent = '';
+      notifCard.style.display = 'none'; reqPendingBox.style.display = 'none'; reqEmptyBox.style.display = 'block';
+      reqBadge.textContent = 'Aman'; reqBadge.style.background = 'var(--green-bg)'; reqBadge.style.color = 'var(--green)';
+    }
+  }
+
+  function renderHistories() {
+    document.getElementById('c-hist-total-in').textContent = '+Rp ' + rp(app.childMonthIn);
+    document.getElementById('c-hist-total-out').textContent = '-Rp ' + rp(app.childMonthOut);
+    document.getElementById('c-riwayat-list').innerHTML = app.history.map(h => {
+      const isIn = h.type === 'in', isDenied = h.type === 'denied';
+      const amtTxt = isDenied ? 'Ditolak' : `${isIn ? '+' : '-'}Rp ${rp(h.amount)}`;
+      const amtColor = isIn ? 'var(--green)' : (isDenied ? '#94A3B8' : 'var(--red-txt)');
+      const lbl = h.method === 'QRIS' ? `${h.title} (QRIS)` : h.title;
+      return `<div class="row"><div><strong>${lbl}</strong><br><span style="font-size:11px; color:${isIn?'var(--muted)':'var(--blue)'};">${h.cat} • ${h.time}</span></div><strong style="color:${amtColor};">${amtTxt}</strong></div>`;
+    }).join('');
+
+    document.getElementById('p-jajan-history-list').innerHTML = app.history.map(h => {
+      const isIn = h.type === 'in', isDenied = h.type === 'denied';
+      const amtTxt = isDenied ? 'Dibatalkan' : `${isIn ? '+' : '-'}Rp ${rp(h.amount)}`;
+      const amtColor = isIn ? 'var(--green)' : (isDenied ? '#94A3B8' : 'var(--red-txt)');
+      const noteColor = isDenied ? 'var(--red-txt)' : (isIn ? 'var(--green)' : 'var(--muted)');
+      return `<div class="row"><div><strong>${h.title}</strong><br><span style="font-size:11px; color:${noteColor};">${h.authNote}</span></div><strong style="color:${amtColor};">${amtTxt}</strong></div>`;
+    }).join('');
+  }
+
+  /* ================= PARENT LOGIC ================= */
+  function pGo(id) { document.querySelectorAll('#phone-parent .screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+  function pSwitchTab(id) {
+    document.querySelectorAll('#phone-parent .tab-panel').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#phone-parent .tabs .tab').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('btn-' + id).classList.add('active');
+  }
+  function pOpenModal(id) { document.getElementById(id).classList.add('show'); }
+  function pCloseModal(id) { document.getElementById(id).classList.remove('show'); }
+  function pShowInfo(t, m) { document.getElementById('p-info-title').textContent = t; document.getElementById('p-info-msg').textContent = m; pOpenModal('p-modal-info'); }
+  function pToggleMainBalance() { app.isParentBalVisible = !app.isParentBalVisible; syncAll(); }
+
+  function pAutoFillKK() {
+    document.getElementById('p-input-nama-anak').value = 'Kenzie Pratama';
+    document.getElementById('p-input-nik-anak').value = '3174091205200001';
+    document.getElementById('p-input-kk-anak').value = '3174090808180004';
+    pSyncChildName();
+  }
+  function pSyncChildName() {
+    const el = document.getElementById('p-input-nama-anak');
+    app.childFullName = el.value.trim();
+    if (app.childFullName) { el.classList.remove('error'); document.getElementById('p-err-nama').style.display = 'none'; }
+    syncAll();
+  }
+  function pSubmitReg() {
+    const el = document.getElementById('p-input-nama-anak');
+    if (!el.value.trim()) { el.classList.add('error'); document.getElementById('p-err-nama').style.display = 'block'; return; }
+    pSyncChildName(); pGo('p-screen-plan');
+  }
+  function pGetYearlyRatePct(y, tot) { return Math.min(2.75, Math.max(1.25, 2.75 - (tot - y) * 0.25)); }
+  function pOnDropdownChange() { app.selectedJenjang = document.getElementById('p-select-jenjang').value; app.selectedTenor = parseInt(document.getElementById('p-select-tenor').value, 10); pRecalculatePlan(); }
+  function pSetQuickDeposit(amt, el) {
+    app.monthlyDeposit = amt; app.editDebetAmount = amt;
+    el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); el.classList.add('active');
+    document.getElementById('p-input-setoran').value = rp(amt); document.getElementById('p-input-edit-debet').value = rp(amt);
+    pRecalculatePlan();
+  }
+  function pFormatRupiahInput(el) {
+    const raw = el.value.replace(/\D/g, '');
+    app.monthlyDeposit = raw ? parseInt(raw, 10) : 0; el.value = raw ? rp(app.monthlyDeposit) : '';
+    app.editDebetAmount = app.monthlyDeposit; document.getElementById('p-input-edit-debet').value = el.value;
+    pRecalculatePlan();
+  }
+  function pRecalculatePlan(updateEdu = false) {
+    let total = 0; const minR = pGetYearlyRatePct(1, app.selectedTenor);
+    for (let y = 1; y <= app.selectedTenor; y++) {
+      const r = pGetYearlyRatePct(y, app.selectedTenor) / 100;
+      for (let m = 1; m <= 12; m++) total = (total + app.monthlyDeposit) * (1 + r / 12);
+    }
+    const calcTarget = Math.round(total);
+    if (updateEdu) {
+      app.eduTargetTotal = calcTarget;
+      const bonus = app.raporClaimed ? 2500000 : 0;
+      app.eduCurrentSaldo = (app.isYearMature ? calcTarget : Math.round(app.monthlyDeposit * 12 * (1 + minR / 100))) + bonus;
+    }
+
+    document.getElementById('p-hub-rate').textContent = (app.isYearMature ? '2,75' : minR.toFixed(2).replace('.', ',')) + '%';
+    document.getElementById('p-hub-year-lbl').textContent = app.isYearMature ? `Tahun ${app.selectedTenor} (Selesai)` : `Tahun 1 dari ${app.selectedTenor}`;
+    document.getElementById('p-sim-tenor-lbl').textContent = app.selectedTenor + ' Tahun';
+    document.getElementById('p-sim-jenjang-lbl').textContent = app.selectedJenjang;
+    document.getElementById('p-sim-total-txt').textContent = 'Rp ' + rp(calcTarget);
+    document.getElementById('p-sim-rate-range').textContent = `${minR.toFixed(2).replace('.', ',')} s/d 2,75% / tahun`;
+    document.getElementById('p-hub-jenjang-badge').textContent = app.selectedJenjang;
+    document.getElementById('p-hub-tenor-badge').textContent = app.selectedTenor + ' Tahun';
+    document.getElementById('p-hub-debet-lbl').textContent = app.isPaused ? `Dijeda (${app.pauseMonths} Bln)` : 'Rp ' + rp(app.monthlyDeposit);
+    document.getElementById('p-modal-plan-desc').textContent = `${app.selectedJenjang} • ${app.selectedTenor} Tahun`;
+    document.getElementById('p-modal-debet-desc').textContent = 'Rp ' + rp(app.monthlyDeposit);
+    document.getElementById('p-fair-total-amt').textContent = 'Rp ' + rp(app.eduTargetTotal);
+
+    let html = '';
+    for (let y = 1; y <= app.selectedTenor; y++) {
+      const rt = pGetYearlyRatePct(y, app.selectedTenor).toFixed(2).replace('.', ',');
+      if (y === 1) html += `<div style="display:flex; justify-content:space-between; padding:9px 11px; background:var(--blue-soft); border-radius:10px; font-weight:700; color:var(--blue);"><span>Tahun ke-1 (Saat Ini)</span><span>${rt}% / tahun</span></div>`;
+      else if (y === app.selectedTenor) html += `<div style="display:flex; justify-content:space-between; padding:9px 11px; background:var(--amber-bg); border-radius:10px; font-weight:700; color:#92400E;"><span>Tahun ke-${y} (Maksimal)</span><span>${rt}% / tahun</span></div>`;
+      else html += `<div style="display:flex; justify-content:space-between; padding:6px 11px;"><span>Tahun ke-${y}</span><span>${rt}% / tahun</span></div>`;
+    }
+    document.getElementById('p-bunga-list').innerHTML = html;
+    syncAll();
+  }
+
+  function pToggleMaturity() {
+    app.isYearMature = !app.isYearMature; pRecalculatePlan(true);
+    if (app.isYearMature) {
+      document.getElementById('p-fair-status').textContent = 'Terbuka'; document.getElementById('p-fair-status').style.background = 'var(--green-bg)'; document.getElementById('p-fair-status').style.color = 'var(--green)';
+      document.getElementById('p-fair-info').textContent = 'Tiket pameran dan konsultan sekolah sudah siap digunakan.';
+      document.getElementById('p-school-tracker').style.display = 'block'; document.getElementById('p-btn-maturity-txt').textContent = 'Kembali ke Thn 1';
+      pOpenModal('p-modal-fair');
+    } else {
+      document.getElementById('p-fair-status').textContent = 'Jatuh Tempo'; document.getElementById('p-fair-status').style.background = 'var(--amber-bg)'; document.getElementById('p-fair-status').style.color = 'var(--amber)';
+      document.getElementById('p-fair-info').textContent = 'Undangan pameran dan konsultan sekolah terbuka otomatis saat tabungan selesai.';
+      document.getElementById('p-school-tracker').style.display = 'none'; document.getElementById('p-btn-maturity-txt').textContent = 'Simulasi Thn ke-' + app.selectedTenor;
+    }
+  }
+
+  function pSetDebetMode(m) {
+    app.debetMode = m;
+    document.getElementById('p-mode-ubah-btn').classList.toggle('active', m === 'ubah');
+    document.getElementById('p-mode-jeda-btn').classList.toggle('active', m === 'jeda');
+    document.getElementById('p-section-ubah-nominal').style.display = m === 'ubah' ? 'block' : 'none';
+    document.getElementById('p-section-jeda-sementara').style.display = m === 'jeda' ? 'block' : 'none';
+  }
+  function pPickEditDebet(amt, el) { app.editDebetAmount = amt; el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); document.getElementById('p-input-edit-debet').value = rp(amt); }
+  function pFormatEditDebet(el) { const raw = el.value.replace(/\D/g, ''); app.editDebetAmount = raw ? parseInt(raw, 10) : 0; el.value = raw ? rp(app.editDebetAmount) : ''; }
+  function pPickPauseMonths(m, el) { app.pauseMonths = m; el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); }
+  function pSaveDebetChanges() {
+    pCloseModal('p-sheet-ubah-debet');
+    if (app.debetMode === 'ubah') {
+      app.isPaused = false; app.monthlyDeposit = app.editDebetAmount;
+      document.getElementById('p-input-setoran').value = rp(app.monthlyDeposit);
+      document.getElementById('p-pause-banner').style.display = 'none';
+      pRecalculatePlan(true); pShowInfo('Setoran Diperbarui', `Setoran bulanan diubah menjadi Rp ${rp(app.monthlyDeposit)}.`);
+    } else {
+      app.isPaused = true;
+      document.getElementById('p-pause-banner').style.display = 'flex';
+      document.getElementById('p-pause-banner-txt').textContent = `Setoran otomatis dijeda ${app.pauseMonths} bulan (Rp 0/bln).`;
+      pRecalculatePlan(false); pShowInfo('Setoran Dijeda', `Setoran dijeda selama ${app.pauseMonths} bulan tanpa biaya penalti.`);
+    }
+  }
+
+  function pSimulateScanRapor() {
+    const t = document.getElementById('p-scan-title'); t.textContent = 'Membaca foto rapor...';
+    setTimeout(() => { t.textContent = 'Foto Rapor Terbaca (Ketuk untuk ganti)'; }, 450);
+  }
+  function pClaimRaporScholarship() {
+    pCloseModal('p-modal-beasiswa');
+    if (app.raporClaimed) { pShowInfo('Sudah Diklaim', 'Beasiswa rapor periode ini sudah masuk.'); return; }
+    app.raporClaimed = true; app.eduCurrentSaldo += 2500000; app.stars += 250;
+    app.certs.unshift({ title: 'Beasiswa Rapor #3 Kab. Tangerang', pts: 250 });
+    const btn = document.getElementById('p-btn-klaim-rapor'); btn.textContent = 'Sudah Masuk ke Tabungan'; btn.disabled = true; btn.style.opacity = '0.65';
+    syncAll();
+    pShowInfo('Beasiswa Masuk!', 'Rp 2.500.000 masuk ke Tabungan Pendidikan & +250 Star Points masuk ke HP Anak.');
+    cShowPopup('reward', 'Hadiah Rapor +250 Star Points!', 'Orang Tua memverifikasi rapormu (#3 Kab. Tangerang). Tabungan Pendidikan +Rp 2.500.000 & kamu mendapat +250 Star Points!');
+  }
+
+  function pSelectTopup(amt, el) { app.topupAmount = amt; el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); document.getElementById('p-input-topup-custom').value = rp(amt); }
+  function pFormatTopup(el) { const raw = el.value.replace(/\D/g, ''); app.topupAmount = raw ? parseInt(raw, 10) : 0; el.value = raw ? rp(app.topupAmount) : ''; }
+  function pApplyTopup() {
+    if (app.topupAmount <= 0 || app.topupAmount > app.parentBalance) { pShowInfo('Gagal', 'Nominal tidak valid atau saldo utama tidak cukup.'); return; }
+    app.parentBalance -= app.topupAmount; app.childSaldo += app.topupAmount; app.childMonthIn += app.topupAmount;
+    app.history.unshift({ title: `Top Up dari ${app.parentName}`, method: 'Masuk', cat: 'Pemasukan', amount: app.topupAmount, type: 'in', authNote: 'Baru saja • Top Up Ortu', time: 'Baru saja' });
+    pCloseModal('p-sheet-topup-jajan'); syncAll();
+    pShowInfo('Saldo Terkirim!', `Rp ${rp(app.topupAmount)} berhasil dikirim ke Uang Saku ${app.childFullName.split(' ')[0]}.`);
+    cShowPopup('success', 'Uang Saku Bertambah!', `Orang Tua baru saja mengirim +Rp ${rp(app.topupAmount)} ke Saldo Uang Saku kamu.`);
+  }
+
+  function pToggleBatasJajan() {
+    app.isLimitEnabled = !app.isLimitEnabled;
+    document.getElementById('p-toggle-batas-jajan').classList.toggle('on', app.isLimitEnabled);
+    document.getElementById('p-batas-jajan-inputs').style.display = app.isLimitEnabled ? 'block' : 'none';
+    document.getElementById('p-batas-status-sub').textContent = app.isLimitEnabled ? 'Aktif • Batasi belanja harian/mingguan' : 'Nonaktif • Tidak ada batas nominal';
+    syncAll();
+  }
+  function pToggleIzinOrtu() { app.requireParent2FA = !app.requireParent2FA; document.getElementById('p-toggle-izin-ortu').classList.toggle('on', app.requireParent2FA); syncAll(); }
+  function pFormatBatasJajan(el) { const raw = el.value.replace(/\D/g, ''); app.limitAmount = raw ? parseInt(raw, 10) : 0; el.value = raw ? rp(app.limitAmount) : ''; syncAll(); }
+  function pUpdateLimitSettings() { app.limitPeriod = document.getElementById('p-select-periode-batas').value; syncAll(); }
+  function pGoToRequestAnak() { pCloseModal('p-sheet-notifikasi'); pCloseModal('p-modal-google-auth'); pGo('p-screen-hub'); pSwitchTab('p-tab-jajan'); }
+
+  function resolvePendingRequest(isApproved) {
+    const req = app.pendingRequest; if (!req) return;
+    pCloseModal('p-modal-google-auth'); pCloseModal('p-sheet-notifikasi');
+    document.getElementById('c-wait-2fa-modal').classList.remove('show');
+    app.pendingRequest = null;
+
+    if (req.type === 'minta_dana') {
+      if (isApproved) {
+        if (req.amount > app.parentBalance) { syncAll(); pShowInfo('Saldo Tidak Cukup', 'Saldo utama tidak mencukupi.'); return; }
+        app.parentBalance -= req.amount; app.childSaldo += req.amount; app.childMonthIn += req.amount;
+        app.history.unshift({ title: `Dana Disetujui (${req.merchant})`, method: 'Masuk', cat: 'Pemasukan', amount: req.amount, type: 'in', authNote: `Baru saja • Dikirim ${app.parentName}`, time: 'Baru saja' });
+        syncAll(); pShowInfo('Dana Terkirim', `Permintaan dana Rp ${rp(req.amount)} disetujui & dikirim ke HP Anak.`);
+        cShowPopup('success', 'Dana Diterima!', `Orang Tua menyetujui permintaanmu! Saldo bertambah +Rp ${rp(req.amount)}.`);
+      } else {
+        app.history.unshift({ title: `Minta Dana (${req.merchant})`, method: 'Permintaan', cat: 'Ditolak', amount: req.amount, type: 'denied', authNote: `Baru saja • Ditolak ${app.parentName}`, time: 'Baru saja' });
+        syncAll(); pShowInfo('Permintaan Ditolak', `Permintaan dana Rp ${rp(req.amount)} ditolak.`);
+        cShowPopup('error', 'Permintaan Ditolak', `Orang Tua belum menyetujui permintaan dana Rp ${rp(req.amount)}.`);
+      }
+      return;
+    }
+
+    if (isApproved) {
+      if (req.amount > app.childSaldo) { syncAll(); cShowPopup('error', 'Saldo Tidak Cukup', 'Saldo uang saku tidak mencukupi.'); return; }
+      app.childSaldo -= req.amount; app.childSpentToday += req.amount; app.childMonthOut += req.amount;
+      app.history.unshift({ title: req.merchant, method: req.isQris ? 'QRIS' : 'Transfer', cat: req.cat, amount: req.amount, type: 'out', authNote: `Baru saja • Diizinkan ${app.parentName}`, time: 'Baru saja' });
+      syncAll(); pShowInfo('Transaksi Diizinkan', `${app.childFullName.split(' ')[0]} diizinkan membayar Rp ${rp(req.amount)} di ${req.merchant}.`);
+      cGo('c-screen-home');
+      if (req.isQris) {
+        const pct = app.isLimitEnabled && app.limitAmount > 0 ? Math.round((app.childSpentToday / app.limitAmount) * 100) : 0;
+        cShowQrisReceipt({ amt: req.amount, merchant: req.merchant, cat: req.cat, pct });
+      } else {
+        cShowPopup('success', 'Transaksi Berhasil', `Orang Tua menyetujui 2FA. Pembayaran Rp ${rp(req.amount)} ke ${req.merchant} selesai.`);
+      }
+    } else {
+      app.history.unshift({ title: req.merchant, method: req.isQris ? 'QRIS' : 'Transfer', cat: req.cat, amount: req.amount, type: 'denied', authNote: `Baru saja • Ditolak ${app.parentName}`, time: 'Baru saja' });
+      syncAll(); pShowInfo('Transaksi Ditolak', `Belanja Rp ${rp(req.amount)} di ${req.merchant} ditolak. Saldo anak tetap aman!`);
+      cGo('c-screen-home'); cShowPopup('error', 'Ditolak Orang Tua', `Orang Tua menolak pembayaran Rp ${rp(req.amount)} di ${req.merchant}.`);
+    }
+  }
+
+  function cancelPending2FA() {
+    app.pendingRequest = null; document.getElementById('c-wait-2fa-modal').classList.remove('show');
+    pCloseModal('p-modal-google-auth'); syncAll(); cShowPopup('warning', 'Dibatalkan', 'Permintaan transaksi dibatalkan.');
+  }
+
+  /* ================= CHILD LOGIC ================= */
+  function cGo(id) {
+    if (id !== 'c-screen-qris') cStopCamera();
+    document.querySelectorAll('#phone-child .screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('c-bottom-nav').style.display = id === 'c-screen-qris' ? 'none' : 'block';
+    document.querySelectorAll('#phone-child .nav-btn').forEach(b => b.classList.remove('active'));
+    if (id === 'c-screen-home') document.getElementById('c-nav-home').classList.add('active');
+    if (id === 'c-screen-history') document.getElementById('c-nav-history').classList.add('active');
+    if (id === 'c-screen-profile') document.getElementById('c-nav-profile').classList.add('active');
+    if (id === 'c-screen-qris') cStartCamera();
+    syncAll();
+  }
+  function cToggleSaldo() { app.childHideSaldo = !app.childHideSaldo; syncAll(); }
+  function cShowPopup(type, title, msg, customButtonsHtml = null) {
+    const icon = document.getElementById('c-pop-icon');
+    const st = { success:{bg:'#DCFCE7',color:'#16A34A',sym:'✓'}, error:{bg:'#FEE2E2',color:'#DC2626',sym:'✕'}, warning:{bg:'#FEF3C7',color:'#D97706',sym:'!'}, reward:{bg:'#EFF6FF',color:'#1254B5',sym:'★'} }[type] || {bg:'#DCFCE7',color:'#16A34A',sym:'✓'};
+    icon.style.background = st.bg; icon.style.color = st.color; icon.textContent = st.sym;
+    document.getElementById('c-pop-title').textContent = title; document.getElementById('c-pop-msg').textContent = msg;
+    document.getElementById('c-pop-actions').innerHTML = customButtonsHtml || `<button class="btn btn-blue" onclick="cClosePopup()">Mengerti</button>`;
+    document.getElementById('c-popup-modal').classList.add('show');
+  }
+  function cClosePopup() { document.getElementById('c-popup-modal').classList.remove('show'); }
+
+  function cCheckBudgetPopup() {
+    if (!app.isLimitEnabled) { cShowPopup('success', 'Anggaran Nonaktif', app.requireParent2FA ? 'Semua transaksi memerlukan izin Orang Tua.' : 'Orang Tua menonaktifkan batas anggaran.'); return; }
+    const pct = app.limitAmount > 0 ? Math.round((app.childSpentToday / app.limitAmount) * 100) : 100;
+    const sisa = Math.max(0, app.limitAmount - app.childSpentToday);
+    cShowPopup(pct >= 60 ? 'warning' : 'success', pct >= 60 ? 'Peringatan Anggaran Harian' : 'Anggaran Harian Aman', `Terpakai ${pct}%. Sisa anggaran Anda Rp ${rp(sisa)}.`);
+  }
+
+  function cDoSpend(amt, cat, title, isQris = false) {
+    if (amt <= 0 || isNaN(amt)) { cShowPopup('error', 'Nominal Tidak Valid', 'Masukkan nominal transaksi lebih dari Rp 0.'); return; }
+    if (amt > app.childSaldo) { cShowPopup('error', 'Transaksi Gagal', 'Saldo uang saku Anda tidak mencukupi untuk transaksi ini.'); return; }
+
+    const exceeds = app.isLimitEnabled && (app.childSpentToday + amt > app.limitAmount);
+    const needs2FA = (app.isLimitEnabled && exceeds) || (!app.isLimitEnabled && app.requireParent2FA);
+
+    if (needs2FA) {
+      if (!app.requireParent2FA && exceeds) {
+        const sisa = Math.max(0, app.limitAmount - app.childSpentToday);
+        cShowPopup('error', 'Melebihi Anggaran Harian', `Transaksi Rp ${rp(amt)} melebihi sisa anggaran Anda (Rp ${rp(sisa)}).`);
+        return;
+      }
+      app.pendingRequest = {
+        type: '2fa_spend', merchant: title, cat, amount: amt, isQris,
+        method: isQris ? 'QRIS Anak • Real-time' : 'Transfer • Real-time',
+        reason: app.isLimitEnabled ? `Melebihi batas ${app.limitPeriod} (Rp ${rp(app.limitAmount)}) • Terpakai Rp ${rp(app.childSpentToday)}` : 'Memerlukan izin orang tua'
+      };
+      document.getElementById('c-wait-merchant').textContent = title;
+      document.getElementById('c-wait-amt').textContent = 'Rp ' + rp(amt);
+      document.getElementById('c-wait-2fa-modal').classList.add('show');
+      syncAll();
+      pOpenModal('p-modal-google-auth');
+      return;
+    }
+
+    app.childSaldo -= amt; app.childSpentToday += amt; app.childMonthOut += amt;
+    app.history.unshift({ title, method: isQris ? 'QRIS' : 'Transfer', cat, amount: amt, type: 'out', authNote: 'Baru saja • Dalam Batas', time: 'Baru saja' });
+    const pct = app.isLimitEnabled && app.limitAmount > 0 ? Math.round((app.childSpentToday / app.limitAmount) * 100) : 0;
+    cGo('c-screen-home');
+    if (isQris) cShowQrisReceipt({ amt, merchant: app.qrisTemp.merchant || title, cat, pct });
+    else if (pct >= 75) cShowPopup('warning', 'Berhasil • Mendekati Batas Harian', `Pembayaran Rp ${rp(amt)} berhasil. Anggaran harian sudah terpakai ${pct}%.`);
+    else cShowPopup('success', 'Transaksi Berhasil', `Pembayaran Rp ${rp(amt)} ke ${title} telah diproses.`);
+  }
+
+  function cOpenOverLimitTest() {
+    document.getElementById('c-qp-amt').value = 95000;
+    document.getElementById('disp-c-qp-amt').textContent = rp(95000);
+    cOpenQrisPay('Gramedia Karawaci', 'Edukasi');
+  }
+  function cOpenQrisPay(m, cat) { app.qrisTemp = { merchant: m, cat }; document.getElementById('c-qp-merchant').textContent = m; document.getElementById('c-qp-cat').textContent = cat; document.getElementById('c-qris-pay-modal').classList.add('show'); }
+  function cCloseQrisPay() { document.getElementById('c-qris-pay-modal').classList.remove('show'); }
+  function cConfirmQrisPay() { const amt = parseInt(document.getElementById('c-qp-amt').value, 10); cCloseQrisPay(); cDoSpend(amt, app.qrisTemp.cat, app.qrisTemp.merchant, true); }
+
+  function cShowQrisReceipt({ amt, merchant, cat, pct }) {
+    const now = new Date(), months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'], pad = n => String(n).padStart(2, '0');
+    const timeStr = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} • ${pad(now.getHours())}:${pad(now.getMinutes())} WIB`;
+    const refNo = `QR${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}${Math.floor(100000 + Math.random()*900000)}`;
+    const sisaBudget = app.isLimitEnabled ? Math.max(0, app.limitAmount - app.childSpentToday) : app.childSaldo;
+    app.lastReceipt = { amt, merchant, cat, timeStr, refNo };
+    document.getElementById('c-rcpt-time').textContent = timeStr;
+    document.getElementById('c-rcpt-total-big').textContent = 'Rp ' + rp(amt);
+    document.getElementById('c-rcpt-ref').textContent = refNo;
+    document.getElementById('c-rcpt-merchant').textContent = merchant;
+    document.getElementById('c-rcpt-cat').textContent = cat;
+    document.getElementById('c-rcpt-nominal').textContent = 'Rp ' + rp(amt);
+    document.getElementById('c-rcpt-total-row').textContent = 'Rp ' + rp(amt);
+    document.getElementById('c-rcpt-sisa-saldo').textContent = 'Rp ' + rp(app.childSaldo);
+    const bEl = document.getElementById('c-rcpt-sisa-budget'); bEl.textContent = app.isLimitEnabled ? 'Rp ' + rp(sisaBudget) : 'Tanpa Batas';
+    bEl.style.color = pct >= 85 ? 'var(--red-txt)' : (pct >= 60 ? 'var(--amber)' : 'var(--green)');
+    const wb = document.getElementById('c-rcpt-warn-box');
+    if (app.isLimitEnabled && pct >= 75) { wb.style.display = 'flex'; document.getElementById('c-rcpt-warn-txt').textContent = `Anggaran ${app.limitPeriod} sudah terpakai ${pct}% (sisa Rp ${rp(sisaBudget)}).`; }
+    else wb.style.display = 'none';
+    document.getElementById('qris-receipt-modal').classList.add('show');
+  }
+  function cCloseQrisReceipt() { document.getElementById('qris-receipt-modal').classList.remove('show'); }
+  function cShareReceipt() { if (app.lastReceipt) cShowPopup('success', 'Struk Siap Dibagikan', `Bukti pembayaran QRIS ke ${app.lastReceipt.merchant} Rp ${rp(app.lastReceipt.amt)} siap dibagikan ke Orang Tua.`); }
+
+  async function cStartCamera() {
+    const video = document.getElementById('qris-video'), fallback = document.getElementById('c-cam-fallback'); cStopCamera();
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { video.style.display = 'none'; fallback.style.display = 'flex'; return; }
+    try { const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: app.facingMode } }); app.qrisStream = s; video.srcObject = s; video.style.display = 'block'; fallback.style.display = 'none'; }
+    catch (e) { video.style.display = 'none'; fallback.style.display = 'flex'; }
+  }
+  function cStopCamera() { if (app.qrisStream) { app.qrisStream.getTracks().forEach(t => t.stop()); app.qrisStream = null; } }
+  function cSwitchCamera() { app.facingMode = app.facingMode === 'environment' ? 'user' : 'environment'; cStartCamera(); }
+
+  function cSwitchTransfer(t) {
+    document.getElementById('c-box-send').style.display = t === 'send' ? 'block' : 'none';
+    document.getElementById('c-box-send-recent').style.display = t === 'send' ? 'block' : 'none';
+    document.getElementById('c-box-req').style.display = t === 'req' ? 'block' : 'none';
+    document.getElementById('c-t-send').classList.toggle('active', t === 'send');
+    document.getElementById('c-t-req').classList.toggle('active', t === 'req');
+  }
+  function cFillRecipient(b, r, n) { document.getElementById('c-tf-bank').value = b; document.getElementById('c-tf-rek').value = r; document.getElementById('c-tf-name').value = n; cShowPopup('success', 'Penerima Dipilih', `${n} (${b} • ${r}) siap ditransfer.`); }
+  function cSubmitFreeTransfer() {
+    const b = document.getElementById('c-tf-bank').value, r = document.getElementById('c-tf-rek').value.trim(), n = document.getElementById('c-tf-name').value.trim() || r, a = parseInt(document.getElementById('c-tf-amt').value, 10);
+    if (!r) { cShowPopup('error', 'Data Belum Lengkap', 'Nomor rekening tujuan wajib diisi.'); return; }
+    cDoSpend(a, `Transfer ${b}`, `${n} (${b})`, false);
+  }
+  function cSubmitRequestMoney() {
+    const amt = parseInt(document.getElementById('c-req-amt').value, 10), note = document.getElementById('c-req-note').value.trim() || 'Keperluan anak';
+    if (amt <= 0 || isNaN(amt)) { cShowPopup('error', 'Nominal Tidak Valid', 'Masukkan nominal permintaan lebih dari Rp 0.'); return; }
+    app.pendingRequest = { type: 'minta_dana', merchant: note, cat: 'Minta Dana', amount: amt, isQris: false, method: 'Minta Dana ke Ortu', reason: `${app.childFullName.split(' ')[0]} meminta dana untuk "${note}".` };
+    syncAll(); cGo('c-screen-home'); cShowPopup('success', 'Permintaan Terkirim', `Permintaan dana Rp ${rp(amt)} telah dikirim ke aplikasi Orang Tua.`);
+    pOpenModal('p-modal-google-auth');
+  }
+
+  function cOpenNumpad(t, l) { app.numTarget = t; app.numBuffer = String(document.getElementById(t).value || '0'); document.getElementById('c-numpad-title').textContent = l; cUpdateNumpadDisp(); document.getElementById('numpad-modal').classList.add('show'); }
+  function cCloseNumpad() { document.getElementById('numpad-modal').classList.remove('show'); }
+  function cNumKey(v) { if (app.numBuffer === '0') app.numBuffer = (v === '000' || v === '0') ? '0' : v; else if (app.numBuffer.length < 9) app.numBuffer += v; cUpdateNumpadDisp(); }
+  function cNumBackspace() { app.numBuffer = app.numBuffer.length > 1 ? app.numBuffer.slice(0, -1) : '0'; cUpdateNumpadDisp(); }
+  function cSetNumpadPreset(v) { app.numBuffer = String(v); cUpdateNumpadDisp(); }
+  function cUpdateNumpadDisp() { document.getElementById('c-numpad-disp').textContent = rp(parseInt(app.numBuffer, 10) || 0); }
+  function cApplyNumpad() { const val = parseInt(app.numBuffer, 10) || 0; document.getElementById(app.numTarget).value = val; document.getElementById(`disp-${app.numTarget}`).textContent = rp(val); cCloseNumpad(); }
+
+  function renderChildRewards() {
+    document.getElementById('c-top-stars').textContent = rp(app.stars);
+    document.getElementById('c-pres-stars').textContent = rp(app.stars);
+    document.getElementById('c-bea-stars').textContent = rp(app.stars);
+    document.getElementById('c-lb-me').textContent = rp(app.stars);
+    document.getElementById('c-cert-list').innerHTML = app.certs.map(c => `<div class="row"><span>${c.title}</span><strong style="color:var(--green);">+${rp(c.pts)}</strong></div>`).join('');
+
+    const qual = app.scholarships.filter(s => app.stars >= s.req), locked = app.scholarships.filter(s => app.stars < s.req), next = locked[0];
+    document.getElementById('c-home-qual-pill').textContent = qual.length + ' Terbuka ›';
+    document.getElementById('c-bea-sum-qual').textContent = `${qual.length} Qualified • ${app.applications.length} On Progress`;
+    document.getElementById('c-bea-sum-lock').textContent = `${locked.length} Beasiswa Terkunci`;
+    document.getElementById('c-prog-count-pill').textContent = `${app.applications.length} Aktif`;
+
+    if (next) {
+      const p = Math.round((app.stars / next.req) * 100);
+      document.getElementById('c-home-next-bar').style.width = p + '%'; document.getElementById('c-pres-next-bar').style.width = p + '%';
+      document.getElementById('c-home-next-txt').textContent = `${rp(app.stars)} / ${rp(next.req)} Poin • ${next.title}`;
+      document.getElementById('c-pres-next-txt').textContent = `${next.req - app.stars} poin lagi → ${next.title}`;
+    } else {
+      document.getElementById('c-home-next-bar').style.width = '100%'; document.getElementById('c-pres-next-bar').style.width = '100%';
+      document.getElementById('c-home-next-txt').textContent = 'Semua beasiswa terbuka'; document.getElementById('c-pres-next-txt').textContent = 'Semua beasiswa terbuka';
+    }
+
+    const getApp = id => app.applications.find(a => a.id === id), stageNames = ['', 'Diajukan', 'Verifikasi', 'Seleksi', 'Diterima'];
+    document.getElementById('c-pres-qual-list').innerHTML = qual.map(s => {
+      const ap = getApp(s.id);
+      return `<div class="row"><div><strong>${s.title}</strong><br><span style="font-size:11px; color:var(--muted);">${s.benefit}${ap ? ' • ' + stageNames[ap.step] : ''}</span></div><button class="btn ${ap ? 'btn-soft' : 'btn-blue'} btn-xs" onclick="${ap ? `cGo('c-screen-beasiswa'); cSetFilter('progress');` : `cApplyBeasiswa(${s.id})`}">${ap ? 'Lihat Progress' : 'Lamar'}</button></div>`;
+    }).join('');
+
+    const tc = document.getElementById('c-beasiswa-tracker-card'), bl = document.getElementById('c-beasiswa-list');
+    if (app.filter === 'progress') {
+      tc.style.display = 'block';
+      bl.innerHTML = app.applications.length === 0 ? `<div class="card" style="text-align:center; padding:22px 16px;"><div style="font-size:13px; font-weight:700; margin-bottom:4px;">Belum Ada Seleksi Berjalan</div><div style="font-size:11.5px; color:var(--muted); margin-bottom:12px;">Ajukan beasiswa yang sudah Qualified untuk memulai seleksi.</div><button class="btn btn-blue btn-xs" onclick="cSetFilter('qual')">Lihat Beasiswa Qualified</button></div>` : '';
+    } else {
+      tc.style.display = app.filter === 'all' ? 'block' : 'none';
+      const list = app.scholarships.filter(s => app.filter === 'qual' ? app.stars >= s.req : (app.filter === 'lock' ? app.stars < s.req : true));
+      bl.innerHTML = list.map(s => {
+        const ok = app.stars >= s.req, ap = getApp(s.id), kurang = Math.max(0, s.req - app.stars), pctStar = Math.min(100, Math.round((app.stars / s.req) * 100));
+        let badge = ap ? `<span class="pill" style="background:${ap.step===4?'var(--green-bg)':'var(--amber-bg)'}; color:${ap.step===4?'var(--green)':'var(--amber)'};">${ap.step===4?'Diterima':'On Progress • '+stageNames[ap.step]}</span>` : (ok ? `<span class="pill" style="background:var(--green-bg); color:var(--green);">Qualified • Min ${rp(s.req)} Poin</span>` : `<span class="pill" style="background:#F1F5F9; color:#64748B;">Terkunci • Min ${rp(s.req)} Poin</span>`);
+        return `<div class="card"><div class="card-top" style="margin-bottom:6px; gap:6px; flex-wrap:wrap;">${badge}<span style="font-size:10.5px; font-weight:600; color:var(--muted);">${s.cat}</span></div><div style="font-size:13.5px; font-weight:700;">${s.title}</div><div style="font-size:12px; color:var(--blue); font-weight:700; margin:3px 0 4px;">${s.benefit}</div><div style="font-size:11px; color:var(--muted); margin-bottom:10px;">${s.desc}</div>${ap ? `<button class="btn btn-soft btn-xs" onclick="cSetFilter('progress')">Pantau Seleksi (${stageNames[ap.step]}) ›</button>` : (ok ? `<button class="btn btn-blue btn-xs" onclick="cApplyBeasiswa(${s.id})">Ajukan Beasiswa</button>` : `<div><div style="display:flex; justify-content:space-between; font-size:10.5px; color:var(--muted); margin-bottom:5px;"><span>Poin Anda: <strong style="color:var(--text);">${rp(app.stars)} / ${rp(s.req)}</strong></span><span style="color:var(--red-txt); font-weight:600;">Kurang ${rp(kurang)} poin</span></div><div class="track"><div class="fill" style="width:${pctStar}%; background:var(--blue);"></div></div></div>`)}</div>`;
+      }).join('');
+    }
+    cRenderTracker();
+  }
+
+  function cClaimStarBonus() {
+    if (app.bonusClaimed) return;
+    app.bonusClaimed = true; app.stars += 250;
+    const btn = document.getElementById('c-btn-bonus-star'); btn.textContent = 'Diklaim'; btn.disabled = true; btn.style.opacity = '0.6';
+    syncAll(); cShowPopup('reward', 'Reward +250 Star Points!', 'Bonus konsistensi menabung diterima. Beasiswa Pemimpin Muda BTN kini terbuka (Qualified)!');
+  }
+  function cApplyBeasiswa(id) {
+    if (app.applications.some(a => a.id === id)) { cGo('c-screen-beasiswa'); cSetFilter('progress'); return; }
+    const s = app.scholarships.find(x => x.id === id), randNum = Math.floor(1000 + Math.random() * 9000);
+    app.applications.unshift({ id: s.id, title: s.title, benefit: s.benefit, step: 2, regNo: `BS-2026-${randNum}`, date: '15 Nov 2026', est: '25 Nov 2026' });
+    syncAll(); cShowPopup('success', 'Pengajuan Terkirim', `Pengajuan ${s.title} berhasil masuk ke tahap Verifikasi (No. Reg: BS-2026-${randNum}).`, `<button class="btn btn-outline" onclick="cClosePopup()">Tutup</button><button class="btn btn-blue" onclick="cClosePopup(); cGo('c-screen-beasiswa'); cSetFilter('progress');">Lihat On Progress</button>`);
+  }
+  function cAdvanceStep(id) {
+    const ap = app.applications.find(a => a.id === id); if (!ap || ap.step >= 4) return;
+    ap.step++;
+    if (ap.step === 4) { app.stars += 150; syncAll(); cShowPopup('reward', 'Selamat! Beasiswa Diterima', `${ap.title} disetujui dan Anda mendapat bonus +150 Star Points.`); }
+    else { syncAll(); cShowPopup('success', 'Tahap Diperbarui', `Status ${ap.title} kini masuk ke tahap ${ap.step === 3 ? 'Seleksi' : 'Verifikasi'}.`); }
+  }
+  function cRenderTracker() {
+    const tr = document.getElementById('c-beasiswa-tracker');
+    if (app.applications.length === 0) { tr.innerHTML = 'Belum ada pengajuan aktif.'; return; }
+    const labels = ['Diajukan', 'Verifikasi', 'Seleksi', 'Diterima'], fillPct = { 1: 0, 2: 25, 3: 51, 4: 76 };
+    tr.innerHTML = app.applications.map(ap => {
+      const isWin = ap.step === 4;
+      return `<div class="app-item"><div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;"><div><strong style="font-size:12.5px;">${ap.title}</strong><div style="font-size:10.5px; color:var(--muted); margin-top:2px;">No. ${ap.regNo} • Daftar ${ap.date} • Est. Hasil ${ap.est}</div></div>${!isWin ? `<button class="btn btn-soft btn-xs" style="padding:4px 9px; font-size:10px; flex-shrink:0;" onclick="cAdvanceStep(${ap.id})">Simulasi Tahap ›</button>` : `<span class="pill" style="background:var(--green-bg); color:var(--green); flex-shrink:0;">Diterima</span>`}</div><div class="step-progress-wrap"><div class="step-line-bg"></div><div class="step-line-fill" style="width:${fillPct[ap.step]}%; background:${isWin?'var(--green)':'var(--blue)'};"></div><div class="step-nodes">${labels.map((lbl, idx) => { const n = idx + 1; let cls = 's-node', icon = n; if (isWin) { cls += ' win'; icon = '✓'; } else if (n < ap.step) { cls += ' done'; icon = '✓'; } else if (n === ap.step) cls += ' current'; return `<div class="${cls}"><div class="s-dot">${icon}</div>${lbl}</div>`; }).join('')}</div></div></div>`;
+    }).join('');
+  }
+  function cSetFilter(f) { app.filter = f; document.querySelectorAll('#c-screen-beasiswa .chip').forEach(c => c.classList.toggle('active', c.dataset.filter === f)); syncAll(); }
+  function cAskLogout() { cShowPopup('warning', 'Keluar dari Pijar by BTN?', 'Anda perlu login kembali menggunakan username @arka_bintang.', `<button class="btn btn-outline" onclick="cClosePopup()">Batal</button><button class="btn btn-red" onclick="cShowPopup('success','Berhasil Keluar','Sesi akun Pijar by BTN Anda telah diakhiri dengan aman.')">Keluar</button>`); }
+
+  pRecalculatePlan(false);
+  syncAll();
+</script>
+</body>
+</html>
